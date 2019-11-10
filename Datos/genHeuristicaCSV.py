@@ -13,7 +13,7 @@ lista=[]
 * Title: Coordinate Reference Systems
 * Author: spk578
 * Date: 2017
-* Availability: http://www.graphicsdrawer.com
+* Availability: https://community.esri.com/groups/coordinate-reference-systems/blog/2017/10/05/haversine-formula
 ***************************************************/
 """
 def haversine(lon1, lat1, lon2, lat2):
