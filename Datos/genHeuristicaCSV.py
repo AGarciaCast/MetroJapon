@@ -8,8 +8,14 @@ import csv
 
 lista=[]
 
-
-#REF: https://community.esri.com/groups/coordinate-reference-systems/blog/2017/10/05/haversine-formula
+"""
+/**************************************************
+* Title: Coordinate Reference Systems
+* Author: spk578
+* Date: 2017
+* Availability: http://www.graphicsdrawer.com
+***************************************************/
+"""
 def haversine(lon1, lat1, lon2, lat2):
     R = 6371000  # radius of Earth in meters
     phi_1 = math.radians(lat1)
