@@ -51,7 +51,72 @@ root.mainloop()
 #TODO
 
 #Grafo ()
-#TODO
+#TOCHECK
+G=nx.Graph()
+listaNodos=["Shinagawa","Osaki","Gotanda","Meguro","Ebisu","Shibuya","Harajuku","Yoyogi","Sobu Yoyogi",
+                            "Yamanote Yoyogi", "Shinjuku","Sobu Shinjuku", "Chuo Shinjuku", "Yamanote Shinjuku","Shin-Okubo",
+                            "Takadanobaba","Mejiro","Ikebukuro","Otsuka","Sugamo",
+                            "Komagome","Tabata","Nishi-Nippori","Nippori","Uguisudani","Ueno","Okachimachi",
+                            "Akihabara", "Yamanote Akihabara", "Sobu Akihabara","Kanda","Tokyo", "Yamanote Tokyo","Chuo Tokyo" ,
+                            "Yurakucho","Shimbashi","Hamamatsucho","Tamachi",
+                            "Ochanomizu", "Sobu Ochanomizu", "Chuo Ochanomizu","Suidobashi","Iidabashi",
+                            "Ichigaya","Yotsuya","Shinanomachi","Sendagaya"]
+
+G.add_nodes_from(listaNodos)
+
+G.add_edges_from([("Yamanote Shinjuku","Shin-Okubo", {'color':'green', 'weight':1.3}),
+                 ("Shin-Okubo","Takadanobaba", {'color':'green', 'weight':1.4}),
+                 ("Takadanobaba", "Mejiro", {'color':'green', 'weight':0.9}), 
+                 ("Mejiro", "Ikebukuro", {'color':'green', 'weight':1.2}),
+                 ("Ikebukuro", "Otsuka", {'color':'green', 'weight':1.8}),
+                 ("Otsuka", "Sugamo", {'color':'green', 'weight':0.9}),
+                 ("Sugamo", "Komagome", {'color':'green', 'weight':0.7}),
+                 ("Komagome", "Tabata", {'color':'green', 'weight':1.6}),
+                 ("Tabata", "Nishi-Nippori", {'color':'green', 'weight':0.8}),
+                 ("Nishi-Nippori", "Nipori", {'color':'green', 'weight':0.5}),
+                 ("Nipori", "Uguisudani", {'color':'green', 'weight':1.1}),
+                 ("Uguisudani", "Ueno", {'color':'green', 'weight':1.1}),
+                 ("Ueno", "Okachimachi", {'color':'green', 'weight':0.6}),
+                 ("Okachimachi", "Yamanote Akihabara", {'color':'green', 'weight':1.0}),
+                 ("Yamanote Akihabara", "Akihabara", {'color':'grey', 'weight':0.0}),
+                 ("Yamanote Akihabara", "Kanda", {'color':'green', 'weight':0.7}),
+                 ("Kanda", "Yamanote Tokyo", {'color':'green', 'weight':1.3}),
+                 ("Yamanote Tokyo", "Tokyo", {'color':'grey', 'weight':0.0}),
+                 ("Yamanote Tokyo", "Yurakucho", {'color':'green', 'weight':0.8}),
+                 ("Yurakucho", "Shimbashi", {'color':'green', 'weight':1.1}),
+                 ("Shimbashi", "Hamatsucho", {'color':'green', 'weight':1.2}),
+                 ("Hamatsucho", "Tamachi", {'color':'green', 'weight':1.5}),
+                 ("Tamachi", "Shinagawa", {'color':'green', 'weight':2.2}), 
+                 ("Shinagawa", "Osaki", {'color':'green', 'weight':2.0}),
+                 ("Osaki", "Gotanda", {'color':'green', 'weight':0.9}),
+                 ("Gotanda", "Meguro", {'color':'green', 'weight':1.2}),
+                 ("Meguro", "Ebisu", {'color':'green', 'weight':1.5}),
+                 ("Ebisu", "Shibuya", {'color':'green', 'weight':1.6}),
+                 ("Shibuya", "Harajuku", {'color':'green', 'weight':1.2}),
+                 ("Harajuku", "Yamanote Yoyogi", {'color':'green', 'weight':1.5}),
+                 ("Yamanote Yoyogi", "Yoyogi", {'color':'grey', 'weight':0.0}),
+                 ("Yamanote Yoyogi", "Yamanote Shinjuku", {'color':'green', 'weight':0.7}),
+                 ("Yamanote Shinjuku", "Shinjuku", {'color':'grey', 'weight':0.0}),
+                 ("Shinjuku", "Chuo Shinjuku", {'color':'grey', 'weight':0.0}),
+                 ("Chuo Shinjuku", "Chuo Ochanomizu", {'color':'red', 'weight':7.7}),
+                 ("Chuo Ochanomizu", "Ochanomizu", {'color':'grey', 'weight':0.0}),
+                 ("Chuo Ochanomizu", "Chuo Tokyo", {'color':'red', 'weight':2.6}),
+                 ("Chuo Tokyo", "Tokyo", {'color':'grey', 'weight':0.0}),
+                 ("Shinjuku", "Sobu Shinjuku", {'color':'grey', 'weight':0.0}),
+                 ("Sobu Shinjuku", "Sobu Yoyogi", {'color':'yellow', 'weight':0.7}),
+                 ("Sobu Yoyogi", "Yoyogi", {'color':'grey', 'weight':0.0}),
+                 ("Sobu Yoyogi", "Sendagaya", {'color':'yellow', 'weight':1.0}),
+                 ("Sendagaya", "Shinanomachi", {'color':'yellow', 'weight':0.7}),
+                 ("Shinanomachi", "Yotsuya", {'color':'yellow', 'weight':1.3}),
+                 ("Yotsuya", "Ichigaya", {'color':'yellow', 'weight':0.8}),
+                 ("Ichigaya", "Iidabashi", {'color':'yellow', 'weight':1.5}),
+                 ("Iidabashi", "Suidobashi", {'color':'yellow', 'weight':0.9}),
+                 ("Suidobashi", "Sobu Ochanomizu", {'color':'yellow', 'weight':0.8}),
+                 ("Sobu Ochanomizu", "Ochanomizu", {'color':'grey', 'weight':0.0}),
+                 ("Sobu Ochanomizu", "Sobu Akihabara", {'color':'yellow', 'weight':0.9}),
+                 ("Sobu Akihabara", "Akihabara", {'color':'grey', 'weight':0.0}),
+                 ])
+                 
 
 #Heurisitica (lista h tal que h[i] = heuristica del dicc[nodo] = i)
 #TODO
