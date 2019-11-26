@@ -48,12 +48,23 @@ root.mainloop()
 """
 
 #Diccionario (nombres estaciones - numeros (de 0 hasta numNodos - 1 !!))
-#TODO
+dicc = {"Shinagawa" : 0,"Osaki" : 1,"Gotanda" : 2,"Meguro" : 3,"Ebisu" : 4 ,"Shibuya" : 5,"Harajuku" : 6,"Yoyogi" : 7,
+        "Sobu Yoyogi" : 8, "Yamanote Yoyogi" : 9, "Shinjuku" : 10,"Sobu Shinjuku" : 11, "Chuo Shinjuku" : 12, 
+        "Yamanote Shinjuku" : 13, "Shin-Okubo" : 14, "Takadanobaba" : 15,"Mejiro" : 16, "Ikebukuro" : 17, 
+        "Otsuka" : 18, "Sugamo" : 19, "Komagome" : 20, "Tabata" : 21, "Nishi-Nippori" : 22, "Nippori" : 23, 
+        "Uguisudani" : 24, "Ueno" : 25, "Okachimachi" : 26, "Akihabara" : 27, "Yamanote Akihabara" : 28, 
+        "Sobu Akihabara" : 29, "Kanda" : 30, "Tokyo" : 31, "Yamanote Tokyo" : 32, "Chuo Tokyo" : 33, "Yurakucho" : 34,
+        "Shimbashi" : 35, "Hamamatsucho" : 36, "Tamachi" : 37, "Ochanomizu" : 38, "Sobu Ochanomizu" : 39, 
+        "Chuo Ochanomizu" : 40, "Suidobashi" : 41, "Iidabashi" : 42, "Ichigaya" : 43, "Yotsuya" : 44,
+        "Shinanomachi" : 45, "Sendagaya" : 46}
+diccInv = {v: k for k, v in dicc.items()}
+
 
 #Grafo ()
 #TOCHECK
-G=nx.Graph()
-listaNodos=["Shinagawa","Osaki","Gotanda","Meguro","Ebisu","Shibuya","Harajuku","Yoyogi","Sobu Yoyogi",
+G = Graph()
+
+"""listaNodos=["Shinagawa","Osaki","Gotanda","Meguro","Ebisu","Shibuya","Harajuku","Yoyogi","Sobu Yoyogi",
                             "Yamanote Yoyogi", "Shinjuku","Sobu Shinjuku", "Chuo Shinjuku", "Yamanote Shinjuku","Shin-Okubo",
                             "Takadanobaba","Mejiro","Ikebukuro","Otsuka","Sugamo",
                             "Komagome","Tabata","Nishi-Nippori","Nippori","Uguisudani","Ueno","Okachimachi",
@@ -62,7 +73,7 @@ listaNodos=["Shinagawa","Osaki","Gotanda","Meguro","Ebisu","Shibuya","Harajuku",
                             "Ochanomizu", "Sobu Ochanomizu", "Chuo Ochanomizu","Suidobashi","Iidabashi",
                             "Ichigaya","Yotsuya","Shinanomachi","Sendagaya"]
 
-G.add_nodes_from(listaNodos)
+G.add_nodes_from(listaNodos)"""
 
 G.add_edges_from([("Yamanote Shinjuku","Shin-Okubo", {'color':'green', 'weight':1.3}),
                  ("Shin-Okubo","Takadanobaba", {'color':'green', 'weight':1.4}),
@@ -124,21 +135,22 @@ G.add_edges_from([("Yamanote Shinjuku","Shin-Okubo", {'color':'green', 'weight':
 
 
 #Diccionario ejemplo
-dicc = { 'La Coruña': 0, 'Madrid': 1,'Barcelona': 2, 'Valencia': 3, 'Cádiz': 4}
+#dicc = { 'La Coruña': 0, 'Madrid': 1,'Barcelona': 2, 'Valencia': 3, 'Cádiz': 4}
 #Inverso de dicc 
-diccInv = {v: k for k, v in dicc.items()}
+#diccInv = {v: k for k, v in dicc.items()}
 
 #Grafo ejemplo
-G = Graph()
-G.add_weighted_edges_from([(dicc['La Coruña'], dicc['Madrid'], 5),
-                           (dicc['Madrid'], dicc['Barcelona'], 2), 
-                           (dicc['Madrid'], dicc['Valencia'], 1), 
-                           (dicc['Barcelona'], dicc['Cádiz'], 2), 
+#G = Graph()
+#G.add_weighted_edges_from([(dicc['La Coruña'], dicc['Madrid'], 5),
+#                           (dicc['Madrid'], dicc['Barcelona'], 2), 
+#                           (dicc['Madrid'], dicc['Valencia'], 1), 
+#                           (dicc['Barcelona'], dicc['Cádiz'], 2), 
                            #(dicc['Barcelona'], dicc['Valencia'], -3),
-                           (dicc['Valencia'], dicc['Cádiz'], 4)])
+#                           (dicc['Valencia'], dicc['Cádiz'], 4)])
 
 #Heuristica ejemplo
-h = [7, 5, 1, 2, 0]
+h = [7, 5, 1, 2, 0, 2, 3, 4, 5 , 5 , 5, 4, 7, 4, 7, 4, 2, 9, 2, 8, 2, 4, 1, 4, 2, 5, 8, 3, 1,2, 6, 9, 3, 6, 8, 2, 2, 3, 5, 
+     2,4, 5,3, 2,4, 3, 2]
 
 
 #Pasar G y h como parametros?
@@ -235,7 +247,8 @@ def calcularRuta(puntero, origen, destino) :
           
  
 print('\nBeep-Boop-Bop...\nBeep-Boop-Bop...\n')
-print(algoritmoA_Estrella('La Coruña', 'Cádiz'))
+print(algoritmoA_Estrella('Ueno', 'Osaki'))
+#print(algoritmoA_Estrella('La Coruña', 'Cádiz'))
     
     
     
