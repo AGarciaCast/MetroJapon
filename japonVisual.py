@@ -167,9 +167,9 @@ G.add_edges_from([("Yamanote Shinjuku","Shin-Okubo", {'color':'green', 'weight':
 
 
 #Pasar G y h como parametros?
-def algoritmoA_Estrella(origenNombre, destinoNombre) :
+def algoritmoA_Estrella(origenNombre, destinoNombre, G) :
     
-    eliminarNodosAux(origenNombre, destinoNombre)
+    eliminarNodosAux(origenNombre, destinoNombre, G)
     
     origen = diccNodos[origenNombre]
     destino = diccNodos[destinoNombre]
@@ -263,7 +263,7 @@ def cogerLinea(fila):
             next(reader)
         return next(reader)
         
-def eliminarNodosAux(origenNombre, destinoNombre):
+def eliminarNodosAux(origenNombre, destinoNombre, G):
     L = ['Shinjuku', 'Akihabara', 'Tokyo', 'Ochanomizu' , 'Yoyogi']
     for nodo in L: 
         if (nodo != origenNombre && nodo != destinoNombre) :
