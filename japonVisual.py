@@ -3,6 +3,7 @@ from tkinter import *
 from tkinter.ttk import *
 from networkx import *
 from heapq import *
+import csv
 #Debugger
 #import pdb; pdb.set_trace()
 """
@@ -190,8 +191,7 @@ G.add_edges_from([(dicc["Yamanote Shinjuku"], dicc["Shin-Okubo"], {'color':'gree
 #Heurisitica (lista h tal que h[i] = heuristica del dicc[nodo] = i)
 #TODO
 #Añadir las heuristicas de los nodos extra!
-#Leer la fila correspondiente del csv
-
+h = [float(num) for num in cogerLinea(x)]
 
 
 #Diccionario ejemplo
@@ -209,6 +209,7 @@ G.add_edges_from([(dicc["Yamanote Shinjuku"], dicc["Shin-Okubo"], {'color':'gree
 #                           (dicc['Valencia'], dicc['Cádiz'], 4)])
 
 #Heuristica ejemplo
+       
 h = [7, 5, 1, 2, 0, 2, 3, 4, 5 , 5 , 5, 4, 7, 4, 7, 4, 2, 9, 2, 8, 2, 4, 1, 4, 2, 5, 8, 3, 1,2, 6, 9, 3, 6, 8, 2, 2, 3, 5, 
      2,4, 5,3, 2,4, 3, 2]
 
@@ -287,7 +288,7 @@ def estaEn(listaDuplas, elem, n):
 #Actualiza un valor en un heap
 def actualizarValor(heap, nodo, nuevoValor) :
     #Busca y elimina el antiguo
-    elemento = [tupla for tupla in heap if tupla[1] == nodo][0]
+    elemento = [dupla for dupla in heap if dupla[1] == nodo][0]
     heap.remove(elemento)
     #Reconvierte en heap
     heapify(heap)
@@ -305,9 +306,17 @@ def calcularRuta(puntero, origen, destino) :
     camino.reverse()
     return camino
           
+#Toma la linea "fila"+1 del csv
+def cogerLinea(fila):
+    with open('Datos/heuristicaMetroJapon.csv', newline='') as csvfile:
+        reader = csv.reader(csvfile, delimiter=',', quotechar='|')
+        for i in range(fila):
+            next(reader)
+        return next(reader)
  
+    
 print('\nBeep-Boop-Bop...\nBeep-Boop-Bop...\n')
-print(algoritmoA_Estrella('Ueno', 'Osaki'))
+print(algoritmoA_Estrella('Ueno', 'Harajuku'))
 #print(algoritmoA_Estrella('La Coruña', 'Cádiz'))
     
     
