@@ -64,7 +64,7 @@ diccInv = {v: k for k, v in dicc.items()}
 #TOCHECK
 G = Graph()
 
-"""listaNodos=["Shinagawa","Osaki","Gotanda","Meguro","Ebisu","Shibuya","Harajuku","Yoyogi","Sobu Yoyogi",
+'''listaNodos=["Shinagawa","Osaki","Gotanda","Meguro","Ebisu","Shibuya","Harajuku","Yoyogi","Sobu Yoyogi",
                             "Yamanote Yoyogi", "Shinjuku","Sobu Shinjuku", "Chuo Shinjuku", "Yamanote Shinjuku","Shin-Okubo",
                             "Takadanobaba","Mejiro","Ikebukuro","Otsuka","Sugamo",
                             "Komagome","Tabata","Nishi-Nippori","Nippori","Uguisudani","Ueno","Okachimachi",
@@ -73,7 +73,7 @@ G = Graph()
                             "Ochanomizu", "Sobu Ochanomizu", "Chuo Ochanomizu","Suidobashi","Iidabashi",
                             "Ichigaya","Yotsuya","Shinanomachi","Sendagaya"]
 
-G.add_nodes_from(listaNodos)"""
+G.add_nodes_from(listaNodos)
 
 G.add_edges_from([("Yamanote Shinjuku","Shin-Okubo", {'color':'green', 'weight':1.3}),
                  ("Shin-Okubo","Takadanobaba", {'color':'green', 'weight':1.4}),
@@ -84,8 +84,8 @@ G.add_edges_from([("Yamanote Shinjuku","Shin-Okubo", {'color':'green', 'weight':
                  ("Sugamo", "Komagome", {'color':'green', 'weight':0.7}),
                  ("Komagome", "Tabata", {'color':'green', 'weight':1.6}),
                  ("Tabata", "Nishi-Nippori", {'color':'green', 'weight':0.8}),
-                 ("Nishi-Nippori", "Nipori", {'color':'green', 'weight':0.5}),
-                 ("Nipori", "Uguisudani", {'color':'green', 'weight':1.1}),
+                 ("Nishi-Nippori", "Nippori", {'color':'green', 'weight':0.5}),
+                 ("Nippori", "Uguisudani", {'color':'green', 'weight':1.1}),
                  ("Uguisudani", "Ueno", {'color':'green', 'weight':1.1}),
                  ("Ueno", "Okachimachi", {'color':'green', 'weight':0.6}),
                  ("Okachimachi", "Yamanote Akihabara", {'color':'green', 'weight':1.0}),
@@ -95,8 +95,8 @@ G.add_edges_from([("Yamanote Shinjuku","Shin-Okubo", {'color':'green', 'weight':
                  ("Yamanote Tokyo", "Tokyo", {'color':'grey', 'weight':0.0}),
                  ("Yamanote Tokyo", "Yurakucho", {'color':'green', 'weight':0.8}),
                  ("Yurakucho", "Shimbashi", {'color':'green', 'weight':1.1}),
-                 ("Shimbashi", "Hamatsucho", {'color':'green', 'weight':1.2}),
-                 ("Hamatsucho", "Tamachi", {'color':'green', 'weight':1.5}),
+                 ("Shimbashi", "Hamamatsucho", {'color':'green', 'weight':1.2}),
+                 ("Hamamatsucho", "Tamachi", {'color':'green', 'weight':1.5}),
                  ("Tamachi", "Shinagawa", {'color':'green', 'weight':2.2}), 
                  ("Shinagawa", "Osaki", {'color':'green', 'weight':2.0}),
                  ("Osaki", "Gotanda", {'color':'green', 'weight':0.9}),
@@ -127,13 +127,70 @@ G.add_edges_from([("Yamanote Shinjuku","Shin-Okubo", {'color':'green', 'weight':
                  ("Sobu Ochanomizu", "Sobu Akihabara", {'color':'yellow', 'weight':0.9}),
                  ("Sobu Akihabara", "Akihabara", {'color':'grey', 'weight':0.0}),
                  ("Yamanote Yoyogi", "Sobu Yoyogi", {'color' :'grey', 'weight':0.2}),
-                 ("Yamanote Shinjuku", "Chuo Shinjuku"), {'color':'grey', 'weight':0.2}),
+                 ("Yamanote Shinjuku", "Chuo Shinjuku", {'color':'grey', 'weight':0.2}),
                  ("Yamanote Akihabara", "Sobu Akihabara", {'color':'grey', 'weight':0.2})
+                 ])'''
+
+G.add_edges_from([(dicc["Yamanote Shinjuku"], dicc["Shin-Okubo"], {'color':'green', 'weight':1.3}),
+                 (dicc["Shin-Okubo"], dicc["Takadanobaba"], {'color':'green', 'weight':1.4}),
+                 (dicc["Takadanobaba"], dicc["Mejiro"], {'color':'green', 'weight':0.9}), 
+                 (dicc["Mejiro"], dicc["Ikebukuro"], {'color':'green', 'weight':1.2}),
+                 (dicc["Ikebukuro"], dicc["Otsuka"], {'color':'green', 'weight':1.8}),
+                 (dicc["Otsuka"], dicc["Sugamo"], {'color':'green', 'weight':0.9}),
+                 (dicc["Sugamo"], dicc["Komagome"], {'color':'green', 'weight':0.7}),
+                 (dicc["Komagome"], dicc["Tabata"], {'color':'green', 'weight':1.6}),
+                 (dicc["Tabata"], dicc["Nishi-Nippori"], {'color':'green', 'weight':0.8}),
+                 (dicc["Nishi-Nippori"], dicc["Nippori"], {'color':'green', 'weight':0.5}),
+                 (dicc["Nippori"], dicc["Uguisudani"], {'color':'green', 'weight':1.1}),
+                 (dicc["Uguisudani"], dicc["Ueno"], {'color':'green', 'weight':1.1}),
+                 (dicc["Ueno"], dicc["Okachimachi"], {'color':'green', 'weight':0.6}),
+                 (dicc["Okachimachi"], dicc["Yamanote Akihabara"], {'color':'green', 'weight':1.0}),
+                 (dicc["Yamanote Akihabara"], dicc["Akihabara"], {'color':'grey', 'weight':0.0}),
+                 (dicc["Yamanote Akihabara"], dicc["Kanda"], {'color':'green', 'weight':0.7}),
+                 (dicc["Kanda"], dicc["Yamanote Tokyo"], {'color':'green', 'weight':1.3}),
+                 (dicc["Yamanote Tokyo"], dicc["Tokyo"], {'color':'grey', 'weight':0.0}),
+                 (dicc["Yamanote Tokyo"], dicc["Yurakucho"], {'color':'green', 'weight':0.8}),
+                 (dicc["Yurakucho"], dicc["Shimbashi"], {'color':'green', 'weight':1.1}),
+                 (dicc["Shimbashi"], dicc["Hamamatsucho"], {'color':'green', 'weight':1.2}),
+                 (dicc["Hamamatsucho"], dicc["Tamachi"], {'color':'green', 'weight':1.5}),
+                 (dicc["Tamachi"], dicc["Shinagawa"], {'color':'green', 'weight':2.2}), 
+                 (dicc["Shinagawa"], dicc["Osaki"], {'color':'green', 'weight':2.0}),
+                 (dicc["Osaki"], dicc["Gotanda"], {'color':'green', 'weight':0.9}),
+                 (dicc["Gotanda"], dicc["Meguro"], {'color':'green', 'weight':1.2}),
+                 (dicc["Meguro"], dicc["Ebisu"], {'color':'green', 'weight':1.5}),
+                 (dicc["Ebisu"], dicc["Shibuya"], {'color':'green', 'weight':1.6}),
+                 (dicc["Shibuya"], dicc["Harajuku"], {'color':'green', 'weight':1.2}),
+                 (dicc["Harajuku"], dicc["Yamanote Yoyogi"], {'color':'green', 'weight':1.5}),
+                 (dicc["Yamanote Yoyogi"], dicc["Yoyogi"], {'color':'grey', 'weight':0.0}),
+                 (dicc["Yamanote Yoyogi"], dicc["Yamanote Shinjuku"], {'color':'green', 'weight':0.7}),
+                 (dicc["Yamanote Shinjuku"], dicc["Shinjuku"], {'color':'grey', 'weight':0.0}),
+                 (dicc["Shinjuku"], dicc["Chuo Shinjuku"], {'color':'grey', 'weight':0.0}),
+                 (dicc["Chuo Shinjuku"], dicc["Chuo Ochanomizu"], {'color':'red', 'weight':7.7}),
+                 (dicc["Chuo Ochanomizu"], dicc["Ochanomizu"], {'color':'grey', 'weight':0.0}),
+                 (dicc["Chuo Ochanomizu"], dicc["Chuo Tokyo"], {'color':'red', 'weight':2.6}),
+                 (dicc["Chuo Tokyo"], dicc["Tokyo"], {'color':'grey', 'weight':0.0}),
+                 (dicc["Shinjuku"], dicc["Sobu Shinjuku"], {'color':'grey', 'weight':0.0}),
+                 (dicc["Sobu Shinjuku"], dicc["Sobu Yoyogi"], {'color':'yellow', 'weight':0.7}),
+                 (dicc["Sobu Yoyogi"], dicc["Yoyogi"], {'color':'grey', 'weight':0.0}),
+                 (dicc["Sobu Yoyogi"], dicc["Sendagaya"], {'color':'yellow', 'weight':1.0}),
+                 (dicc["Sendagaya"], dicc["Shinanomachi"], {'color':'yellow', 'weight':0.7}),
+                 (dicc["Shinanomachi"], dicc["Yotsuya"], {'color':'yellow', 'weight':1.3}),
+                 (dicc["Yotsuya"], dicc["Ichigaya"], {'color':'yellow', 'weight':0.8}),
+                 (dicc["Ichigaya"], dicc["Iidabashi"], {'color':'yellow', 'weight':1.5}),
+                 (dicc["Iidabashi"], dicc["Suidobashi"], {'color':'yellow', 'weight':0.9}),
+                 (dicc["Suidobashi"], dicc["Sobu Ochanomizu"], {'color':'yellow', 'weight':0.8}),
+                 (dicc["Sobu Ochanomizu"], dicc["Ochanomizu"], {'color':'grey', 'weight':0.0}),
+                 (dicc["Sobu Ochanomizu"], dicc["Sobu Akihabara"], {'color':'yellow', 'weight':0.9}),
+                 (dicc["Sobu Akihabara"], dicc["Akihabara"], {'color':'grey', 'weight':0.0}),
+                 (dicc["Yamanote Yoyogi"], dicc["Sobu Yoyogi"], {'color' :'grey', 'weight':0.2}),
+                 (dicc["Yamanote Shinjuku"], dicc["Chuo Shinjuku"], {'color':'grey', 'weight':0.2}),
+                 (dicc["Yamanote Akihabara"], dicc["Sobu Akihabara"], {'color':'grey', 'weight':0.2})
                  ])
-                 
 
 #Heurisitica (lista h tal que h[i] = heuristica del dicc[nodo] = i)
 #TODO
+#Añadir las heuristicas de los nodos extra!
+#Leer la fila correspondiente del csv
 
 
 
