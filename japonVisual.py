@@ -168,8 +168,12 @@ G.add_edges_from([("Yamanote Shinjuku","Shin-Okubo", {'color':'green', 'weight':
 
 #Pasar G y h como parametros?
 def algoritmoA_Estrella(origenNombre, destinoNombre) :
+    
+    eliminarNodosAux(origenNombre, destinoNombre)
+    
     origen = diccNodos[origenNombre]
     destino = diccNodos[destinoNombre]
+    
     #PriorityQueue de duplas (f , nombre)
     listaAbierta = []
     #Lista
@@ -258,6 +262,12 @@ def cogerLinea(fila):
         for i in range(fila+1):
             next(reader)
         return next(reader)
+        
+def eliminarNodosAux(origenNombre, destinoNombre):
+    L = ['Shinjuku', 'Akihabara', 'Tokyo', 'Ochanomizu' , 'Yoyogi']
+    for nodo in L: 
+        if (nodo != origenNombre && nodo != destinoNombre) :
+            G.remove(nodo)
  
     
 print('\nBeep-Boop-Bop...\nBeep-Boop-Bop...\n')
