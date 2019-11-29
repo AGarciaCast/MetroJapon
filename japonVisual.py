@@ -49,7 +49,7 @@ root.mainloop()
 """
 
 #Diccionario (nombres estaciones - numeros (de 0 hasta numNodos - 1 !!))
-dicc = {"Shinagawa" : 0,"Osaki" : 1,"Gotanda" : 2,"Meguro" : 3,"Ebisu" : 4 ,"Shibuya" : 5,"Harajuku" : 6,"Yoyogi" : 7,
+'''dicc = {"Shinagawa" : 0,"Osaki" : 1,"Gotanda" : 2,"Meguro" : 3,"Ebisu" : 4 ,"Shibuya" : 5,"Harajuku" : 6,"Yoyogi" : 7,
         "Sobu Yoyogi" : 8, "Yamanote Yoyogi" : 9, "Shinjuku" : 10,"Sobu Shinjuku" : 11, "Chuo Shinjuku" : 12, 
         "Yamanote Shinjuku" : 13, "Shin-Okubo" : 14, "Takadanobaba" : 15,"Mejiro" : 16, "Ikebukuro" : 17, 
         "Otsuka" : 18, "Sugamo" : 19, "Komagome" : 20, "Tabata" : 21, "Nishi-Nippori" : 22, "Nippori" : 23, 
@@ -60,6 +60,56 @@ dicc = {"Shinagawa" : 0,"Osaki" : 1,"Gotanda" : 2,"Meguro" : 3,"Ebisu" : 4 ,"Shi
         "Shinanomachi" : 45, "Sendagaya" : 46}
 diccInv = {v: k for k, v in dicc.items()}
 
+
+diccNodos = {"Shinagawa": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 0} ,"Osaki": {'f': -1, 'g': -1, 'puntero': -1} ,
+            "Gotanda": {'f': -1, 'g': -1, 'puntero': -1} ,"Meguro": {'f': -1, 'g': -1, 'puntero': -1} ,
+            "Ebisu": {'f': -1, 'g': -1, 'puntero': -1} ,"Shibuya": {'f': -1, 'g': -1, 'puntero': -1} ,
+            "Harajuku": {'f': -1, 'g': -1, 'puntero': -1} ,"Yoyogi": {'f': -1, 'g': -1, 'puntero': -1} ,
+            "Sobu Yoyogi": {'f': -1, 'g': -1, 'puntero': -1} ,"Yamanote Yoyogi": {'f': -1, 'g': -1, 'puntero': -1} , 
+            "Shinjuku": {'f': -1, 'g': -1, 'puntero': -1} ,"Sobu Shinjuku": {'f': -1, 'g': -1, 'puntero': -1} , 
+            "Chuo Shinjuku": {'f': -1, 'g': -1, 'puntero': -1} , "Yamanote Shinjuku": {'f': -1, 'g': -1, 'puntero': -1} ,
+            "Shin-Okubo": {'f': -1, 'g': -1, 'puntero': -1} ,"Takadanobaba": {'f': -1, 'g': -1, 'puntero': -1} ,
+            "Mejiro": {'f': -1, 'g': -1, 'puntero': -1} ,"Ikebukuro": {'f': -1, 'g': -1, 'puntero': -1} ,
+            "Otsuka": {'f': -1, 'g': -1, 'puntero': -1} ,"Sugamo": {'f': -1, 'g': -1, 'puntero': -1} ,
+            "Komagome": {'f': -1, 'g': -1, 'puntero': -1} ,"Tabata": {'f': -1, 'g': -1, 'puntero': -1} ,
+            "Nishi-Nippori": {'f': -1, 'g': -1, 'puntero': -1} ,"Nippori": {'f': -1, 'g': -1, 'puntero': -1} ,
+            "Uguisudani": {'f': -1, 'g': -1, 'puntero': -1} ,"Ueno": {'f': -1, 'g': -1, 'puntero': -1} ,
+            "Okachimachi": {'f': -1, 'g': -1, 'puntero': -1} ,"Akihabara": {'f': -1, 'g': -1, 'puntero': -1} , 
+            "Yamanote Akihabara": {'f': -1, 'g': -1, 'puntero': -1} , "Sobu Akihabara": {'f': -1, 'g': -1, 'puntero': -1} ,
+            "Kanda": {'f': -1, 'g': -1, 'puntero': -1} ,"Tokyo": {'f': -1, 'g': -1, 'puntero': -1} ,
+            "Yamanote Tokyo": {'f': -1, 'g': -1, 'puntero': -1} ,"Chuo Tokyo": {'f': -1, 'g': -1, 'puntero': -1} ,
+            "Yurakucho": {'f': -1, 'g': -1, 'puntero': -1} ,"Shimbashi": {'f': -1, 'g': -1, 'puntero': -1} ,
+            "Hamamatsucho": {'f': -1, 'g': -1, 'puntero': -1} ,"Tamachi": {'f': -1, 'g': -1, 'puntero': -1} ,
+            "Ochanomizu": {'f': -1, 'g': -1, 'puntero': -1} , "Sobu Ochanomizu": {'f': -1, 'g': -1, 'puntero': -1} , 
+            "Chuo Ochanomizu": {'f': -1, 'g': -1, 'puntero': -1} ,"Suidobashi": {'f': -1, 'g': -1, 'puntero': -1} ,
+            "Iidabashi": {'f': -1, 'g': -1, 'puntero': -1} ,"Ichigaya": {'f': -1, 'g': -1, 'puntero': -1} ,
+            "Yotsuya": {'f': -1, 'g': -1, 'puntero': -1} ,"Shinanomachi": {'f': -1, 'g': -1, 'puntero': -1} ,
+            "Sendagaya": {'f': -1, 'g': -1, 'puntero': -1}}'''
+            
+diccNodos = {"Shinagawa": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 0} ,"Osaki": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 1} ,
+            "Gotanda": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 2} ,"Meguro": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 3} ,
+            "Ebisu": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 4} ,"Shibuya": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 5} ,
+            "Harajuku": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 6} ,"Yoyogi": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 7} ,
+            "Sobu Yoyogi": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 7} ,"Yamanote Yoyogi": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 7} , 
+            "Shinjuku": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 8} ,"Sobu Shinjuku": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 8} , 
+            "Chuo Shinjuku": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 8} , "Yamanote Shinjuku": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 8} ,
+            "Shin-Okubo": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 9} ,"Takadanobaba": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 10} ,
+            "Mejiro": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 11} ,"Ikebukuro": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 12} ,
+            "Otsuka": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 13} ,"Sugamo": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 14} ,
+            "Komagome": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 15} ,"Tabata": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 16} ,
+            "Nishi-Nippori": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 17} ,"Nippori": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 18} ,
+            "Uguisudani": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 19} ,"Ueno": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 20} ,
+            "Okachimachi": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 21} ,"Akihabara": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 22} , 
+            "Yamanote Akihabara": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 22} , "Sobu Akihabara": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 22} ,
+            "Kanda": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 23} ,"Tokyo": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 24} ,
+            "Yamanote Tokyo": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 24} ,"Chuo Tokyo": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 24} ,
+            "Yurakucho": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 25} ,"Shimbashi": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 26} ,
+            "Hamamatsucho": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 27} ,"Tamachi": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 28} ,
+            "Ochanomizu": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 29} , "Sobu Ochanomizu": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 29} , 
+            "Chuo Ochanomizu": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 29} ,"Suidobashi": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 30} ,
+            "Iidabashi": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 31} ,"Ichigaya": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 32} ,
+            "Yotsuya": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 33} ,"Shinanomachi": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 34} ,
+            "Sendagaya": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 35}}
 
 #Grafo ()
 #TOCHECK
@@ -74,7 +124,7 @@ G = Graph()
                             "Ochanomizu", "Sobu Ochanomizu", "Chuo Ochanomizu","Suidobashi","Iidabashi",
                             "Ichigaya","Yotsuya","Shinanomachi","Sendagaya"]
 
-G.add_nodes_from(listaNodos)
+G.add_nodes_from(listaNodos)'''
 
 G.add_edges_from([("Yamanote Shinjuku","Shin-Okubo", {'color':'green', 'weight':1.3}),
                  ("Shin-Okubo","Takadanobaba", {'color':'green', 'weight':1.4}),
@@ -130,9 +180,9 @@ G.add_edges_from([("Yamanote Shinjuku","Shin-Okubo", {'color':'green', 'weight':
                  ("Yamanote Yoyogi", "Sobu Yoyogi", {'color' :'grey', 'weight':0.2}),
                  ("Yamanote Shinjuku", "Chuo Shinjuku", {'color':'grey', 'weight':0.2}),
                  ("Yamanote Akihabara", "Sobu Akihabara", {'color':'grey', 'weight':0.2})
-                 ])'''
+                 ])
 
-G.add_edges_from([(dicc["Yamanote Shinjuku"], dicc["Shin-Okubo"], {'color':'green', 'weight':1.3}),
+'''G.add_edges_from([(dicc["Yamanote Shinjuku"], dicc["Shin-Okubo"], {'color':'green', 'weight':1.3}),
                  (dicc["Shin-Okubo"], dicc["Takadanobaba"], {'color':'green', 'weight':1.4}),
                  (dicc["Takadanobaba"], dicc["Mejiro"], {'color':'green', 'weight':0.9}), 
                  (dicc["Mejiro"], dicc["Ikebukuro"], {'color':'green', 'weight':1.2}),
@@ -186,12 +236,7 @@ G.add_edges_from([(dicc["Yamanote Shinjuku"], dicc["Shin-Okubo"], {'color':'gree
                  (dicc["Yamanote Yoyogi"], dicc["Sobu Yoyogi"], {'color' :'grey', 'weight':0.2}),
                  (dicc["Yamanote Shinjuku"], dicc["Chuo Shinjuku"], {'color':'grey', 'weight':0.2}),
                  (dicc["Yamanote Akihabara"], dicc["Sobu Akihabara"], {'color':'grey', 'weight':0.2})
-                 ])
-
-#Heurisitica (lista h tal que h[i] = heuristica del dicc[nodo] = i)
-#TODO
-#Añadir las heuristicas de los nodos extra!
-h = [float(num) for num in cogerLinea(x)]
+                 ])'''
 
 
 #Diccionario ejemplo
@@ -216,28 +261,32 @@ h = [7, 5, 1, 2, 0, 2, 3, 4, 5 , 5 , 5, 4, 7, 4, 7, 4, 2, 9, 2, 8, 2, 4, 1, 4, 2
 
 #Pasar G y h como parametros?
 def algoritmoA_Estrella(origenNombre, destinoNombre) :
-    origen = dicc[origenNombre]
-    destino = dicc[destinoNombre]
+    origen = diccNodo[origenNombre]
+    destino = diccNodo[destinoNombre]
     #PriorityQueue de duplas (f , nombre)
     listaAbierta = []
     #Lista
     listaCerrada = []
+    #Heuristica
+    h = [float(num) for num in cogerLinea(diccNodos[destinoNombre]['posH'])]
     
     #Listas auxiliares f, g y puntero, inicializadas con -1
     #no se usaran todas sus posiciones, tendran "huecos"
-    f = []
+    '''f = []
     g = []
     puntero = []
     for i in range(0, G.number_of_nodes()) :
         f.append(-1) 
         g.append(-1)
-        puntero.append(-1)
+        puntero.append(-1)'''
         
     #Inicializar el nodo origen
-    g[origen] = 0
-    f[origen] = g[origen] + h[origen]
-    heappush(listaAbierta, (f[origen], origen))
-
+    
+    
+    origen['g'] = 0
+    origen['f'] = origen['g'] + h[origen['posH']]
+    heappush(listaAbierta, (origen['f'], origenNombre))
+    
     hemosLlegado = False 
     
     while (not hemosLlegado) :
@@ -245,41 +294,41 @@ def algoritmoA_Estrella(origenNombre, destinoNombre) :
         nodoPrometedor = heappop(listaAbierta)[1]
         listaCerrada.append(nodoPrometedor)
      
-        if (nodoPrometedor == destino) :
+        if (nodoPrometedor == destinoNombre) :
             hemosLlegado = True
         else :
             for nodoSiguiente in list(G.adj[nodoPrometedor]):
                 #Se calculan f y g provisionales pero todavia no se guardan
-                g_nodoSiguiente = g[nodoPrometedor] + G.edges[nodoPrometedor, nodoSiguiente]['weight']
-                f_nodoSiguiente = g_nodoSiguiente + h[nodoSiguiente] 
+                g_nodoSiguiente = diccNodos[nodoPrometedor]['g'] + G.edges[nodoPrometedor, nodoSiguiente]['weight']
+                f_nodoSiguiente = g_nodoSiguiente + h[diccNodos[nodoSiguiente]['posH']] 
                 G.remove_edge(nodoPrometedor, nodoSiguiente)
                 
                 #Si hay un elemento con nodoSiguiente en listaAbierta
                 #(aunque no necesariamente con la f que se acaba de calcular)
                 if (estaEn(listaAbierta, nodoSiguiente, 1) or (nodoSiguiente in listaCerrada)
-                    and f_nodoSiguiente < f[nodoSiguiente]) :
+                    and f_nodoSiguiente < diccNodos[nodoSiguiente]['f']) :
                     #Si mejora el camino, se guardan los nuevos f y g, 
                     #se actualizan el puntero y f en la listaAbierta
-                    guardarValores(nodoSiguiente, g, g_nodoSiguiente, f, f_nodoSiguiente, puntero, nodoPrometedor)
-                    actualizarValor(listaAbierta, nodoSiguiente, f[nodoSiguiente])
+                    guardarValores(nodoSiguiente, g_nodoSiguiente, f_nodoSiguiente, nodoPrometedor)
+                    actualizarValor(listaAbierta, nodoSiguiente, diccNodos[nodoSiguiente]['f'])
                 #if (nodoSiguiente in listaCerrada) :
                     #TODO??
                 if (not estaEn(listaAbierta, nodoSiguiente, 1) and (nodoSiguiente not in listaCerrada)) :
                     #Si no se habia explorado el nodo, se guardan f, g, puntero 
                     #y se introduce en la listaAbierta
-                    guardarValores(nodoSiguiente, g, g_nodoSiguiente, f, f_nodoSiguiente, puntero, nodoPrometedor)
-                    heappush(listaAbierta, (f[nodoSiguiente], nodoSiguiente))
+                    guardarValores(nodoSiguiente, g_nodoSiguiente, f_nodoSiguiente, nodoPrometedor)
+                    heappush(listaAbierta, (diccNodos[nodoSiguiente]['f'], nodoSiguiente))
                     
     if (hemosLlegado) :
-        return calcularRuta(puntero, origen, destino)
+        return calcularRuta(origenNombre, destinoNombre)
     else :
         print('Error')
                    
 
-def guardarValores(nodo, g, valor_g, f, valor_f, puntero, nodoAnterior) :
-    g[nodo] = valor_g
-    f[nodo] = valor_f
-    puntero[nodo] = nodoAnterior
+def guardarValores(nodo, valor_g, valor_f, nodoAnterior) :
+    diccNodos[nodo]['g'] = valor_g
+    diccNodos[nodo]['f'] = valor_f
+    diccNodos[nodo]['puntero'] = nodoAnterior
     
 #Mira si hay una dupla en la lista de duplas cuya coordenada n-esima sea elem
 def estaEn(listaDuplas, elem, n):
@@ -296,21 +345,21 @@ def actualizarValor(heap, nodo, nuevoValor) :
     heappush(heap, (nuevoValor, nodo))
     
 #Devuelve una lista con los nombres de los nodos del camino optimo en orden 
-def calcularRuta(puntero, origen, destino) :
-    camino = [diccInv[destino]]
-    anterior = puntero[destino]
-    while (anterior != origen) :
-        camino.append(diccInv[anterior])
-        anterior = puntero[anterior]
-    camino.append(diccInv[origen])
+def calcularRuta(origenNombre, destinoNombre) :
+    camino = [destinoNombre]
+    anterior = diccNodos[destinoNombre]['puntero']
+    while (anterior != origenNombre) :
+        camino.append(anterior)
+        anterior = diccNodos[anterior]['puntero']
+    camino.append[origenNombre]
     camino.reverse()
     return camino
           
-#Toma la linea "fila"+1 del csv
+#Toma la linea "fila"+2 del csv
 def cogerLinea(fila):
     with open('Datos/heuristicaMetroJapon.csv', newline='') as csvfile:
         reader = csv.reader(csvfile, delimiter=',', quotechar='|')
-        for i in range(fila):
+        for i in range(fila+1):
             next(reader)
         return next(reader)
  
