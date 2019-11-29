@@ -6,49 +6,46 @@ from heapq import *
 import csv
 #Debugger
 #import pdb; pdb.set_trace()
-"""
-root = Tk()
-root.title("Metro Japón")
-
-frame= Frame(root)
-frame.pack()
-frame.config(width=600,height = 600)
-
-labelOrigen = Label(frame, text = "Origen:")
-labelOrigen.grid(row=0, column=0, sticky=W ,padx=5, pady=5)
-
-seleccionOrigen = Combobox(frame)
-seleccionOrigen.grid(row=1, column =0,padx=5, pady=5)
-seleccionOrigen["values"] = ("Shinagawa","Osaki","Gotanda","Meguro","Ebisu","Shibuya","Harajuku","Yoyogi",
-                            "Shinjuku","Shin-Okubo","Takadanobaba","Mejiro","Ikebukuro","Otsuka","Sugamo",
-                            "Komagome","Tabata","Nishi-Nippori","Nippori","Uguisudani","Ueno","Okachimachi",
-                            "Akihabara","Kanda","Tokyo","Yurakucho","Shimbashi","Hamamatsucho","Tamachi",
-                            "Ochanomizu","Suidobashi","Iidabashi","Ichigaya","Yotsuya","Shinanomachi","Sendagaya")
-
-labelDestino = Label(frame, text = "Destino:")
-labelDestino.grid(row=2, column=0, sticky=W ,padx=5, pady=5)
-
-seleccionDestino = ttk.Combobox(frame)
-seleccionDestino.grid(row=3, column =0,padx=5, pady=5)
-seleccionDestino["values"] = ("Shinagawa","Osaki","Gotanda","Meguro","Ebisu","Shibuya","Harajuku","Yoyogi",
-                            "Shinjuku","Shin-Okubo","Takadanobaba","Mejiro","Ikebukuro","Otsuka","Sugamo",
-                            "Komagome","Tabata","Nishi-Nippori","Nippori","Uguisudani","Ueno","Okachimachi",
-                            "Akihabara","Kanda","Tokyo","Yurakucho","Shimbashi","Hamamatsucho","Tamachi",
-                            "Ochanomizu","Suidobashi","Iidabashi","Ichigaya","Yotsuya","Shinanomachi","Sendagaya")
-
-botonCalcular  = Button (frame, text = "Calcular ruta")
-botonCalcular.grid(row=4, column=0 ,padx=5, pady=5)
 
 
-labelResultado = Label(frame, text = "Resultado:")
-labelResultado.grid(row=0, column=1, sticky=W ,padx=5, pady=5)
+#Diccionario (nombres estaciones - numeros (de 0 hasta numNodos - 1 !!))
+'''dicc = {"Shinagawa" : 0,"Osaki" : 1,"Gotanda" : 2,"Meguro" : 3,"Ebisu" : 4 ,"Shibuya" : 5,"Harajuku" : 6,"Yoyogi" : 7,
+        "Sobu Yoyogi" : 8, "Yamanote Yoyogi" : 9, "Shinjuku" : 10,"Sobu Shinjuku" : 11, "Chuo Shinjuku" : 12, 
+        "Yamanote Shinjuku" : 13, "Shin-Okubo" : 14, "Takadanobaba" : 15,"Mejiro" : 16, "Ikebukuro" : 17, 
+        "Otsuka" : 18, "Sugamo" : 19, "Komagome" : 20, "Tabata" : 21, "Nishi-Nippori" : 22, "Nippori" : 23, 
+        "Uguisudani" : 24, "Ueno" : 25, "Okachimachi" : 26, "Akihabara" : 27, "Yamanote Akihabara" : 28, 
+        "Sobu Akihabara" : 29, "Kanda" : 30, "Tokyo" : 31, "Yamanote Tokyo" : 32, "Chuo Tokyo" : 33, "Yurakucho" : 34,
+        "Shimbashi" : 35, "Hamamatsucho" : 36, "Tamachi" : 37, "Ochanomizu" : 38, "Sobu Ochanomizu" : 39, 
+        "Chuo Ochanomizu" : 40, "Suidobashi" : 41, "Iidabashi" : 42, "Ichigaya" : 43, "Yotsuya" : 44,
+        "Shinanomachi" : 45, "Sendagaya" : 46}
+diccInv = {v: k for k, v in dicc.items()}
 
- 
-root.mainloop()
 
-"""
-
-#Diccionario (nombres estaciones - f, g, puntero, posH)         
+diccNodos = {"Shinagawa": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 0} ,"Osaki": {'f': -1, 'g': -1, 'puntero': -1} ,
+            "Gotanda": {'f': -1, 'g': -1, 'puntero': -1} ,"Meguro": {'f': -1, 'g': -1, 'puntero': -1} ,
+            "Ebisu": {'f': -1, 'g': -1, 'puntero': -1} ,"Shibuya": {'f': -1, 'g': -1, 'puntero': -1} ,
+            "Harajuku": {'f': -1, 'g': -1, 'puntero': -1} ,"Yoyogi": {'f': -1, 'g': -1, 'puntero': -1} ,
+            "Sobu Yoyogi": {'f': -1, 'g': -1, 'puntero': -1} ,"Yamanote Yoyogi": {'f': -1, 'g': -1, 'puntero': -1} , 
+            "Shinjuku": {'f': -1, 'g': -1, 'puntero': -1} ,"Sobu Shinjuku": {'f': -1, 'g': -1, 'puntero': -1} , 
+            "Chuo Shinjuku": {'f': -1, 'g': -1, 'puntero': -1} , "Yamanote Shinjuku": {'f': -1, 'g': -1, 'puntero': -1} ,
+            "Shin-Okubo": {'f': -1, 'g': -1, 'puntero': -1} ,"Takadanobaba": {'f': -1, 'g': -1, 'puntero': -1} ,
+            "Mejiro": {'f': -1, 'g': -1, 'puntero': -1} ,"Ikebukuro": {'f': -1, 'g': -1, 'puntero': -1} ,
+            "Otsuka": {'f': -1, 'g': -1, 'puntero': -1} ,"Sugamo": {'f': -1, 'g': -1, 'puntero': -1} ,
+            "Komagome": {'f': -1, 'g': -1, 'puntero': -1} ,"Tabata": {'f': -1, 'g': -1, 'puntero': -1} ,
+            "Nishi-Nippori": {'f': -1, 'g': -1, 'puntero': -1} ,"Nippori": {'f': -1, 'g': -1, 'puntero': -1} ,
+            "Uguisudani": {'f': -1, 'g': -1, 'puntero': -1} ,"Ueno": {'f': -1, 'g': -1, 'puntero': -1} ,
+            "Okachimachi": {'f': -1, 'g': -1, 'puntero': -1} ,"Akihabara": {'f': -1, 'g': -1, 'puntero': -1} , 
+            "Yamanote Akihabara": {'f': -1, 'g': -1, 'puntero': -1} , "Sobu Akihabara": {'f': -1, 'g': -1, 'puntero': -1} ,
+            "Kanda": {'f': -1, 'g': -1, 'puntero': -1} ,"Tokyo": {'f': -1, 'g': -1, 'puntero': -1} ,
+            "Yamanote Tokyo": {'f': -1, 'g': -1, 'puntero': -1} ,"Chuo Tokyo": {'f': -1, 'g': -1, 'puntero': -1} ,
+            "Yurakucho": {'f': -1, 'g': -1, 'puntero': -1} ,"Shimbashi": {'f': -1, 'g': -1, 'puntero': -1} ,
+            "Hamamatsucho": {'f': -1, 'g': -1, 'puntero': -1} ,"Tamachi": {'f': -1, 'g': -1, 'puntero': -1} ,
+            "Ochanomizu": {'f': -1, 'g': -1, 'puntero': -1} , "Sobu Ochanomizu": {'f': -1, 'g': -1, 'puntero': -1} , 
+            "Chuo Ochanomizu": {'f': -1, 'g': -1, 'puntero': -1} ,"Suidobashi": {'f': -1, 'g': -1, 'puntero': -1} ,
+            "Iidabashi": {'f': -1, 'g': -1, 'puntero': -1} ,"Ichigaya": {'f': -1, 'g': -1, 'puntero': -1} ,
+            "Yotsuya": {'f': -1, 'g': -1, 'puntero': -1} ,"Shinanomachi": {'f': -1, 'g': -1, 'puntero': -1} ,
+            "Sendagaya": {'f': -1, 'g': -1, 'puntero': -1}}'''
+            
 diccNodos = {"Shinagawa": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 0} ,"Osaki": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 1} ,
             "Gotanda": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 2} ,"Meguro": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 3} ,
             "Ebisu": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 4} ,"Shibuya": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 5} ,
@@ -145,6 +142,61 @@ G.add_edges_from([("Yamanote Shinjuku","Shin-Okubo", {'color':'green', 'weight':
                  ("Yamanote Akihabara", "Sobu Akihabara", {'color':'grey', 'weight':0.2})
                  ])
 
+'''G.add_edges_from([(dicc["Yamanote Shinjuku"], dicc["Shin-Okubo"], {'color':'green', 'weight':1.3}),
+                 (dicc["Shin-Okubo"], dicc["Takadanobaba"], {'color':'green', 'weight':1.4}),
+                 (dicc["Takadanobaba"], dicc["Mejiro"], {'color':'green', 'weight':0.9}), 
+                 (dicc["Mejiro"], dicc["Ikebukuro"], {'color':'green', 'weight':1.2}),
+                 (dicc["Ikebukuro"], dicc["Otsuka"], {'color':'green', 'weight':1.8}),
+                 (dicc["Otsuka"], dicc["Sugamo"], {'color':'green', 'weight':0.9}),
+                 (dicc["Sugamo"], dicc["Komagome"], {'color':'green', 'weight':0.7}),
+                 (dicc["Komagome"], dicc["Tabata"], {'color':'green', 'weight':1.6}),
+                 (dicc["Tabata"], dicc["Nishi-Nippori"], {'color':'green', 'weight':0.8}),
+                 (dicc["Nishi-Nippori"], dicc["Nippori"], {'color':'green', 'weight':0.5}),
+                 (dicc["Nippori"], dicc["Uguisudani"], {'color':'green', 'weight':1.1}),
+                 (dicc["Uguisudani"], dicc["Ueno"], {'color':'green', 'weight':1.1}),
+                 (dicc["Ueno"], dicc["Okachimachi"], {'color':'green', 'weight':0.6}),
+                 (dicc["Okachimachi"], dicc["Yamanote Akihabara"], {'color':'green', 'weight':1.0}),
+                 (dicc["Yamanote Akihabara"], dicc["Akihabara"], {'color':'grey', 'weight':0.0}),
+                 (dicc["Yamanote Akihabara"], dicc["Kanda"], {'color':'green', 'weight':0.7}),
+                 (dicc["Kanda"], dicc["Yamanote Tokyo"], {'color':'green', 'weight':1.3}),
+                 (dicc["Yamanote Tokyo"], dicc["Tokyo"], {'color':'grey', 'weight':0.0}),
+                 (dicc["Yamanote Tokyo"], dicc["Yurakucho"], {'color':'green', 'weight':0.8}),
+                 (dicc["Yurakucho"], dicc["Shimbashi"], {'color':'green', 'weight':1.1}),
+                 (dicc["Shimbashi"], dicc["Hamamatsucho"], {'color':'green', 'weight':1.2}),
+                 (dicc["Hamamatsucho"], dicc["Tamachi"], {'color':'green', 'weight':1.5}),
+                 (dicc["Tamachi"], dicc["Shinagawa"], {'color':'green', 'weight':2.2}), 
+                 (dicc["Shinagawa"], dicc["Osaki"], {'color':'green', 'weight':2.0}),
+                 (dicc["Osaki"], dicc["Gotanda"], {'color':'green', 'weight':0.9}),
+                 (dicc["Gotanda"], dicc["Meguro"], {'color':'green', 'weight':1.2}),
+                 (dicc["Meguro"], dicc["Ebisu"], {'color':'green', 'weight':1.5}),
+                 (dicc["Ebisu"], dicc["Shibuya"], {'color':'green', 'weight':1.6}),
+                 (dicc["Shibuya"], dicc["Harajuku"], {'color':'green', 'weight':1.2}),
+                 (dicc["Harajuku"], dicc["Yamanote Yoyogi"], {'color':'green', 'weight':1.5}),
+                 (dicc["Yamanote Yoyogi"], dicc["Yoyogi"], {'color':'grey', 'weight':0.0}),
+                 (dicc["Yamanote Yoyogi"], dicc["Yamanote Shinjuku"], {'color':'green', 'weight':0.7}),
+                 (dicc["Yamanote Shinjuku"], dicc["Shinjuku"], {'color':'grey', 'weight':0.0}),
+                 (dicc["Shinjuku"], dicc["Chuo Shinjuku"], {'color':'grey', 'weight':0.0}),
+                 (dicc["Chuo Shinjuku"], dicc["Chuo Ochanomizu"], {'color':'red', 'weight':7.7}),
+                 (dicc["Chuo Ochanomizu"], dicc["Ochanomizu"], {'color':'grey', 'weight':0.0}),
+                 (dicc["Chuo Ochanomizu"], dicc["Chuo Tokyo"], {'color':'red', 'weight':2.6}),
+                 (dicc["Chuo Tokyo"], dicc["Tokyo"], {'color':'grey', 'weight':0.0}),
+                 (dicc["Shinjuku"], dicc["Sobu Shinjuku"], {'color':'grey', 'weight':0.0}),
+                 (dicc["Sobu Shinjuku"], dicc["Sobu Yoyogi"], {'color':'yellow', 'weight':0.7}),
+                 (dicc["Sobu Yoyogi"], dicc["Yoyogi"], {'color':'grey', 'weight':0.0}),
+                 (dicc["Sobu Yoyogi"], dicc["Sendagaya"], {'color':'yellow', 'weight':1.0}),
+                 (dicc["Sendagaya"], dicc["Shinanomachi"], {'color':'yellow', 'weight':0.7}),
+                 (dicc["Shinanomachi"], dicc["Yotsuya"], {'color':'yellow', 'weight':1.3}),
+                 (dicc["Yotsuya"], dicc["Ichigaya"], {'color':'yellow', 'weight':0.8}),
+                 (dicc["Ichigaya"], dicc["Iidabashi"], {'color':'yellow', 'weight':1.5}),
+                 (dicc["Iidabashi"], dicc["Suidobashi"], {'color':'yellow', 'weight':0.9}),
+                 (dicc["Suidobashi"], dicc["Sobu Ochanomizu"], {'color':'yellow', 'weight':0.8}),
+                 (dicc["Sobu Ochanomizu"], dicc["Ochanomizu"], {'color':'grey', 'weight':0.0}),
+                 (dicc["Sobu Ochanomizu"], dicc["Sobu Akihabara"], {'color':'yellow', 'weight':0.9}),
+                 (dicc["Sobu Akihabara"], dicc["Akihabara"], {'color':'grey', 'weight':0.0}),
+                 (dicc["Yamanote Yoyogi"], dicc["Sobu Yoyogi"], {'color' :'grey', 'weight':0.2}),
+                 (dicc["Yamanote Shinjuku"], dicc["Chuo Shinjuku"], {'color':'grey', 'weight':0.2}),
+                 (dicc["Yamanote Akihabara"], dicc["Sobu Akihabara"], {'color':'grey', 'weight':0.2})
+                 ])'''
 
 
 #Diccionario ejemplo
@@ -161,27 +213,34 @@ G.add_edges_from([("Yamanote Shinjuku","Shin-Okubo", {'color':'green', 'weight':
                            #(dicc['Barcelona'], dicc['Valencia'], -3),
 #                           (dicc['Valencia'], dicc['Cádiz'], 4)])
 
-#Heuristica ejemplo     
-#h = [7, 5, 1, 2, 0,      2, 3, 4, 5 , 5 , 5, 4, 7, 4, 7, 4, 2, 9, 2, 8, 2, 4, 1, 4, 2, 5, 8, 3, 1,2, 6, 9, 3, 6, 8, 2, 2, 3, 5, 
-#    2,4, 5,3, 2,4, 3, 2]
+#Heuristica ejemplo
+       
 
 
 #Pasar G y h como parametros?
-def algoritmoA_Estrella(origenNombre, destinoNombre, G) :
-    
-    eliminarNodosAux(origenNombre, destinoNombre, G)
-    
+def algoritmoA_Estrella(origenNombre, destinoNombre,G) :
     origen = diccNodos[origenNombre]
     destino = diccNodos[destinoNombre]
-    
     #PriorityQueue de duplas (f , nombre)
     listaAbierta = []
     #Lista
     listaCerrada = []
     #Heuristica
     h = [float(num) for num in cogerLinea(diccNodos[destinoNombre]['posH'])]
+    
+    #Listas auxiliares f, g y puntero, inicializadas con -1
+    #no se usaran todas sus posiciones, tendran "huecos"
+    '''f = []
+    g = []
+    puntero = []
+    for i in range(0, G.number_of_nodes()) :
+        f.append(-1) 
+        g.append(-1)
+        puntero.append(-1)'''
         
     #Inicializar el nodo origen
+    
+    
     origen['g'] = 0
     origen['f'] = origen['g'] + h[origen['posH']]
     heappush(listaAbierta, (origen['f'], origenNombre))
@@ -222,8 +281,7 @@ def algoritmoA_Estrella(origenNombre, destinoNombre, G) :
         return calcularRuta(origenNombre, destinoNombre)
     else :
         print('Error')
-              
-              
+                   
 
 def guardarValores(nodo, valor_g, valor_f, nodoAnterior) :
     diccNodos[nodo]['g'] = valor_g
@@ -251,7 +309,7 @@ def calcularRuta(origenNombre, destinoNombre) :
     while (anterior != origenNombre) :
         camino.append(anterior)
         anterior = diccNodos[anterior]['puntero']
-    camino.append[origenNombre]
+    camino.append(origenNombre)
     camino.reverse()
     return camino
           
@@ -262,16 +320,67 @@ def cogerLinea(fila):
         for i in range(fila+1):
             next(reader)
         return next(reader)
-        
+    
 def eliminarNodosAux(origenNombre, destinoNombre, G):
     L = ['Shinjuku', 'Akihabara', 'Tokyo', 'Ochanomizu' , 'Yoyogi']
     for nodo in L: 
-        if (nodo != origenNombre && nodo != destinoNombre) :
-            G.remove(nodo)
- 
+        if (nodo != origenNombre and nodo != destinoNombre) :
+           G.remove_node(nodo)
+
+def calcularResumenCamino():
+    origenNombre=seleccionOrigen.get()
+    destinoNombre= seleccionDestino.get()
+    Gcopia= G.copy()
+    eliminarNodosAux(origenNombre, destinoNombre, Gcopia)
+    camino = algoritmoA_Estrella(origenNombre,destinoNombre,Gcopia)
+  
+    print(camino)
+
+
+root = Tk()
+root.title("Metro Japón")
+
+frame= Frame(root)
+frame.pack()
+frame.config(width=600,height = 600)
+
+labelOrigen = Label(frame, text = "Origen:")
+labelOrigen.grid(row=0, column=0, sticky=W ,padx=5, pady=5)
+
+seleccionOrigen = Combobox(frame)
+seleccionOrigen.grid(row=1, column =0,padx=5, pady=5)
+seleccionOrigen["values"] = ("Shinagawa","Osaki","Gotanda","Meguro","Ebisu","Shibuya","Harajuku","Yoyogi",
+                            "Shinjuku","Shin-Okubo","Takadanobaba","Mejiro","Ikebukuro","Otsuka","Sugamo",
+                            "Komagome","Tabata","Nishi-Nippori","Nippori","Uguisudani","Ueno","Okachimachi",
+                            "Akihabara","Kanda","Tokyo","Yurakucho","Shimbashi","Hamamatsucho","Tamachi",
+                            "Ochanomizu","Suidobashi","Iidabashi","Ichigaya","Yotsuya","Shinanomachi","Sendagaya")
+
+labelDestino = Label(frame, text = "Destino:")
+labelDestino.grid(row=2, column=0, sticky=W ,padx=5, pady=5)
+
+seleccionDestino = ttk.Combobox(frame)
+seleccionDestino.grid(row=3, column =0,padx=5, pady=5)
+seleccionDestino["values"] = ("Shinagawa","Osaki","Gotanda","Meguro","Ebisu","Shibuya","Harajuku","Yoyogi",
+                            "Shinjuku","Shin-Okubo","Takadanobaba","Mejiro","Ikebukuro","Otsuka","Sugamo",
+                            "Komagome","Tabata","Nishi-Nippori","Nippori","Uguisudani","Ueno","Okachimachi",
+                            "Akihabara","Kanda","Tokyo","Yurakucho","Shimbashi","Hamamatsucho","Tamachi",
+                            "Ochanomizu","Suidobashi","Iidabashi","Ichigaya","Yotsuya","Shinanomachi","Sendagaya")
+
+botonCalcular  = Button (frame,command=calcularResumenCamino, text = "Calcular ruta")
+botonCalcular.grid(row=4, column=0 ,padx=5, pady=5)
+
+
+labelResultado = Label(frame, text = "Resultado:")
+labelResultado.grid(row=0, column=1, sticky=W ,padx=5, pady=5)
+
+
     
-print('\nBeep-Boop-Bop...\nBeep-Boop-Bop...\n')
-print(algoritmoA_Estrella('Ueno', 'Harajuku'))
+    
+    
+    
+root.mainloop()
+   
+
 #print(algoritmoA_Estrella('La Coruña', 'Cádiz'))
     
     
