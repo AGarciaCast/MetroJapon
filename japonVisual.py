@@ -297,6 +297,7 @@ def pintarGraph():
     #topFrame= Frame(top)
     #topFrame.pack()
     #topFrame.config(width=600,height = 600)
+    plt.close()
     f = plt.figure(figsize=(18,15),dpi=100,num='Ruta en el Mapa')
     thismanager = plt.get_current_fig_manager()
     #Icon made by Freepik from www.flaticon.com
@@ -329,14 +330,17 @@ def pintarGraph():
     #canvas.show()
     #canvas.get_tk_widget().pack(side=Tk.TOP, fill=Tk.BOTH, expand=True)
     
-    
+def finProg():
+    plt.close()
+    root.destroy()
+ 
 root = Tk()
 root.title("Metro Japón")
 root.resizable(0, 0)
 #Icon made by Freepik from www.flaticon.com
 #https://www.flaticon.com/free-icon/japan_203070?term=japan%20flag&page=1&position=3
 root.iconbitmap('japan.ico')
-
+root.protocol('WM_DELETE_WINDOW', finProg)
 frame= Frame(root)
 frame.pack()
 frame.config(width=600,height = 600)
