@@ -262,24 +262,33 @@ def calcularResumenCamino():
         linea = None
         longCamino = len(camino)
         for i in range(longCamino):
-            if i == 0:
+            if i == 0 or i==longCamino-1 :
                 padre=treeResultado.insert('','end',text=camino[i])
-            elif i==longCamino-1:
-                treeResultado.insert('','end',text=camino[i])
+                nuevo = padre
             else:
                 if linea==None or colorLinea[Gcopia[camino[i-1]][camino[i]]['color']]!=linea:
                     if colorLinea[Gcopia[camino[i-1]][camino[i]]['color']] == 'Interchange':
                         linea=colorLinea[Gcopia[camino[i]][camino[i+1]]['color']]
                     else:
                          linea=colorLinea[Gcopia[camino[i-1]][camino[i]]['color']]
+                         
                     if i ==1:
-                        treeResultado.insert(padre,'end',text=camino[i])
+                        nuevo =treeResultado.insert(padre,'end',text=camino[i])
                     else:
                         padre = treeResultado.insert('','end',text=camino[i])
+                        nuevo = padre
                     treeResultado.set(padre,'linea',linea)
                     #treeResultado.item(padre,tags=('Yamanote'))
                 else: 
-                    treeResultado.insert(padre,'end',text=camino[i])
+                    nuevo = treeResultado.insert(padre,'end',text=camino[i])
+            if i==1:
+                treeResultado.set(nuevo, 'distancia',str(Gcopia[camino[i-1]][camino[i]]['weight']))
+            elif i!=0:
+                treeResultado.set(nuevo, 'distancia',
+                                  round(float(treeResultado.item(ultimo)['values'][1]) + Gcopia[camino[i-1]][camino[i]]['weight'],1))
+            ultimo = nuevo
+                    
+                        
 
 def pintarGraph():
     global camino
@@ -292,6 +301,7 @@ def pintarGraph():
     thismanager = plt.get_current_fig_manager()
     #Icon made by Freepik from www.flaticon.com
     thismanager.window.wm_iconbitmap("konoha.ico")
+    thismanager.window.state('zoomed')
     a = f.add_subplot(111)
     plt.axis('off')
     
@@ -369,10 +379,12 @@ treeResultado = Treeview(frame)
 
 
 treeResultado.grid (row=1, column=1, rowspan=5, sticky=W ,padx=5, pady=5)
-treeResultado.config(columns=("linea"))
-treeResultado.column('linea',width=150,anchor='center')
+treeResultado.config(columns=("linea",'distancia'))
+treeResultado.column('linea',width=130,anchor='center')
+treeResultado.column('distancia',width=150,anchor='center')
 treeResultado.heading('#0',text='Estación')
 treeResultado.heading('linea',text='Linea')
+treeResultado.heading('distancia',text='Distancia Recorrida (km)')
 
 treeResultado.tag_configure('Chuo', background='red')
 treeResultado.tag_configure('Yamanote', background='green')
