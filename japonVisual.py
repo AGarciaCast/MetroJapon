@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
+
 from tkinter import *
 from tkinter.ttk import *
 from networkx import *
 from heapq import *
+import matplotlib.pyplot as plt
 import csv
 #Debugger
 #import pdb; pdb.set_trace()
@@ -100,6 +102,8 @@ G.add_edges_from([("Yamanote Shinjuku","Shin-Okubo", {'color':'green', 'weight':
                  ("Yamanote Shinjuku", "Chuo Shinjuku", {'color':'grey', 'weight':0.2}),
                  ("Yamanote Akihabara", "Sobu Akihabara", {'color':'grey', 'weight':0.2})
                  ])
+
+#nx.draw(G, pos=nx.spectral_layout(G),with_labels=True, font_weight='bold')
 
 
 def algoritmoA_Estrella(origenNombre, destinoNombre,G) :
@@ -200,17 +204,46 @@ def eliminarNodosAux(origenNombre, destinoNombre, G):
         if (nodo != origenNombre and nodo != destinoNombre) :
            G.remove_node(nodo)
 
-def calcularResumenCamino():
-    origenNombre = seleccionOrigen.get()
-    destinoNombre = seleccionDestino.get()
-    Gcopia = G.copy()
-    eliminarNodosAux(origenNombre, destinoNombre, Gcopia)
-    camino = algoritmoA_Estrella(origenNombre, destinoNombre, Gcopia)
-    print(camino)
+colorLinea={'green': 'Yamanote', 'red': 'Chuo', 'yellow': 'Sobu', 'grey': 'Interchange'}
 
+
+
+def calcularResumenCamino():
+    if(seleccionOrigen.current() !=-1 and seleccionDestino.current()!=-1):
+        #Habilita el boton de dibujar
+        if str(botonPintarGrafo['state']) == 'disabled':
+            botonPintarGrafo['state'] = 'normal'
+
+        treeResultado.delete(*treeResultado.get_children())
+        origenNombre = seleccionOrigen.get()
+        destinoNombre = seleccionDestino.get()
+        Gcopia = G.copy()
+        eliminarNodosAux(origenNombre, destinoNombre, Gcopia)
+        camino = algoritmoA_Estrella(origenNombre, destinoNombre, Gcopia.copy())
+        print (camino)
+        linea = None
+        longCamino = len(camino)
+        for i in range(longCamino):
+            if i == 0:
+                padre=treeResultado.insert('','end',text=camino[i])
+            elif i==longCamino-1:
+                treeResultado.insert('','end',text=camino[i])
+            else:
+                print (linea)
+                if linea==None or colorLinea[Gcopia[camino[i-1]][camino[i]]['color']]!=linea:
+                    linea=colorLinea[Gcopia[camino[i-1]][camino[i]]['color']]
+                    if i != 1:
+                        padre = treeResultado.insert('','end',text=camino[i])
+                else: 
+                    treeResultado.insert(padre,'end',text=camino[i])
+                    
 
 root = Tk()
 root.title("Metro Japón")
+root.resizable(0, 0)
+#Icon made by Freepik from www.flaticon.com
+#https://www.flaticon.com/free-icon/japan_203070?term=japan%20flag&page=1&position=3
+root.iconbitmap('japan.ico')
 
 frame= Frame(root)
 frame.pack()
@@ -219,7 +252,7 @@ frame.config(width=600,height = 600)
 labelOrigen = Label(frame, text = "Origen:")
 labelOrigen.grid(row=0, column=0, sticky=W ,padx=5, pady=5)
 
-seleccionOrigen = Combobox(frame)
+seleccionOrigen = Combobox(frame, state="readonly")
 seleccionOrigen.grid(row=1, column =0,padx=5, pady=5)
 seleccionOrigen["values"] = ("Shinagawa","Osaki","Gotanda","Meguro","Ebisu","Shibuya","Harajuku","Yoyogi",
                             "Shinjuku","Shin-Okubo","Takadanobaba","Mejiro","Ikebukuro","Otsuka","Sugamo",
@@ -230,7 +263,7 @@ seleccionOrigen["values"] = ("Shinagawa","Osaki","Gotanda","Meguro","Ebisu","Shi
 labelDestino = Label(frame, text = "Destino:")
 labelDestino.grid(row=2, column=0, sticky=W ,padx=5, pady=5)
 
-seleccionDestino = Combobox(frame)
+seleccionDestino = Combobox(frame, state="readonly")
 seleccionDestino.grid(row=3, column =0,padx=5, pady=5)
 seleccionDestino["values"] = ("Shinagawa","Osaki","Gotanda","Meguro","Ebisu","Shibuya","Harajuku","Yoyogi",
                             "Shinjuku","Shin-Okubo","Takadanobaba","Mejiro","Ikebukuro","Otsuka","Sugamo",
@@ -238,14 +271,20 @@ seleccionDestino["values"] = ("Shinagawa","Osaki","Gotanda","Meguro","Ebisu","Sh
                             "Akihabara","Kanda","Tokyo","Yurakucho","Shimbashi","Hamamatsucho","Tamachi",
                             "Ochanomizu","Suidobashi","Iidabashi","Ichigaya","Yotsuya","Shinanomachi","Sendagaya")
 
+
+
 botonCalcular  = Button (frame, command=calcularResumenCamino, text = "Calcular ruta")
 botonCalcular.grid(row=4, column=0 ,padx=5, pady=5)
 
+botonPintarGrafo = botonPintarGrafo=Button (frame,text = "Dibujar ruta",state=DISABLED)
+botonPintarGrafo.grid(row=5, column=0 ,padx=5, pady=5)
 
 labelResultado = Label(frame, text = "Resultado:")
 labelResultado.grid(row=0, column=1, sticky=W ,padx=5, pady=5)
 
-    
+treeResultado = Treeview(frame)
+treeResultado.grid (row=1, column=1, rowspan=5, sticky=W ,padx=5, pady=5)
+
 root.mainloop()
    
     
