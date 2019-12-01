@@ -3,93 +3,118 @@ import matplotlib
 matplotlib.use('TkAgg')
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
+import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 from tkinter import *
 from tkinter.ttk import *
 from networkx import *
 from heapq import *
-import matplotlib.pyplot as plt
 import csv
 #Debugger
 #import pdb; pdb.set_trace()
 
 #Diccionario (nombres estaciones - f, g, puntero, posH)        
-diccNodos = {"Shinagawa": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 0} ,"Osaki": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 1} ,
-            "Gotanda": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 2} ,"Meguro": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 3} ,
-            "Ebisu": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 4} ,"Shibuya": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 5} ,
-            "Harajuku": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 6} ,"Yoyogi": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 7} ,
-            "Sobu Yoyogi": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 7} ,"Yamanote Yoyogi": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 7} , 
-            "Shinjuku": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 8} ,"Sobu Shinjuku": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 8} , 
-            "Chuo Shinjuku": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 8} , "Yamanote Shinjuku": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 8} ,
-            "Shin-Okubo": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 9} ,"Takadanobaba": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 10} ,
-            "Mejiro": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 11} ,"Ikebukuro": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 12} ,
-            "Otsuka": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 13} ,"Sugamo": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 14} ,
-            "Komagome": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 15} ,"Tabata": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 16} ,
-            "Nishi-Nippori": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 17} ,"Nippori": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 18} ,
-            "Uguisudani": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 19} ,"Ueno": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 20} ,
-            "Okachimachi": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 21} ,"Akihabara": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 22} , 
-            "Yamanote Akihabara": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 22} , "Sobu Akihabara": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 22} ,
-            "Kanda": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 23} ,"Tokyo": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 24} ,
-            "Yamanote Tokyo": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 24} ,"Chuo Tokyo": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 24} ,
-            "Yurakucho": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 25} ,"Shimbashi": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 26} ,
-            "Hamamatsucho": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 27} ,"Tamachi": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 28} ,
-            "Ochanomizu": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 29} , "Sobu Ochanomizu": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 29} , 
-            "Chuo Ochanomizu": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 29} ,"Suidobashi": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 30} ,
-            "Iidabashi": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 31} ,"Ichigaya": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 32} ,
-            "Yotsuya": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 33} ,"Shinanomachi": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 34} ,
-            "Sendagaya": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 35}}
+diccNodos = {"Shinagawa": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 0},
+            "Osaki": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 1},
+            "Gotanda": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 2},
+            "Meguro": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 3},
+            "Ebisu": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 4},
+            "Shibuya": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 5},
+            "Harajuku": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 6},
+            "Yoyogi": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 7},
+            "Sobu Yoyogi": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 7},
+            "Yamanote Yoyogi": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 7}, 
+            "Shinjuku": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 8},
+            "Sobu Shinjuku": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 8},
+            "Chuo Shinjuku": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 8},
+            "Yamanote Shinjuku": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 8},
+            "Shin-Okubo": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 9},
+            "Takadanobaba": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 10},
+            "Mejiro": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 11},
+            "Ikebukuro": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 12},
+            "Otsuka": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 13},
+            "Sugamo": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 14},
+            "Komagome": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 15},
+            "Tabata": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 16},
+            "Nishi-Nippori": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 17},
+            "Nippori": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 18},
+            "Uguisudani": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 19},
+            "Ueno": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 20},
+            "Okachimachi": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 21},
+            "Akihabara": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 22}, 
+            "Yamanote Akihabara": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 22},
+            "Sobu Akihabara": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 22},
+            "Kanda": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 23},
+            "Tokyo": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 24},
+            "Yamanote Tokyo": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 24},
+            "Chuo Tokyo": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 24},
+            "Yurakucho": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 25},
+            "Shimbashi": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 26},
+            "Hamamatsucho": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 27},
+            "Tamachi": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 28},
+            "Ochanomizu": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 29},
+            "Sobu Ochanomizu": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 29}, 
+            "Chuo Ochanomizu": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 29},
+            "Suidobashi": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 30},
+            "Iidabashi": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 31},
+            "Ichigaya": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 32},
+            "Yotsuya": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 33},
+            "Shinanomachi": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 34},
+            "Sendagaya": {'f': -1, 'g': -1, 'puntero': -1, 'posH': 35}
+            }
+
+posNodos={"Shinagawa":(327,18),
+          "Osaki":(260,9),
+          "Gotanda":(215,9),
+          "Meguro":(175,9),
+          "Ebisu":(120,36),
+          "Shibuya":(120,97),
+          "Harajuku":(120,150),
+          "Yoyogi":(120,230),
+          "Sobu Yoyogi":(70,230),
+          "Yamanote Yoyogi":(120,230),
+          "Shinjuku":(120,273),
+          "Sobu Shinjuku":(70,273),
+          "Chuo Shinjuku":(92,315),
+          "Yamanote Shinjuku":(120,273),
+          "Shin-Okubo":(120,360),
+          "Takadanobaba":(125,406),
+          "Mejiro":(166,467),
+          "Ikebukuro":(233,490),
+          "Otsuka":(311,488),
+          "Sugamo":(350,488),
+          "Komagome":(387,488),
+          "Tabata":(436,470),
+          "Nishi-Nippori":(458,446),
+          "Nippori":(465,410),
+          "Uguisudani":(465,380),
+          "Ueno":(465,350),
+          "Okachimachi":(465,317),
+          "Akihabara":(465,286),
+          "Yamanote Akihabara":(465,286),
+          "Sobu Akihabara":(410,286),
+          "Kanda":(465,238),
+          "Tokyo":(465,192),
+          "Yamanote Tokyo":(465,192),
+          "Chuo Tokyo":(415,192),
+          "Yurakucho":(460,150),
+          "Shimbashi":(433,123),
+          "Hamamatsucho":(400,91),
+          "Tamachi":(365,56),
+          "Ochanomizu":(335,309),
+          "Sobu Ochanomizu":(314,286),
+          "Chuo Ochanomizu":(335,315),
+          "Suidobashi":(283,264),
+          "Iidabashi":(263,244),
+          "Ichigaya":(243,224),
+          "Yotsuya":(223,204),
+          "Shinanomachi":(195,180),
+          "Sendagaya":(146,180)
+          }
 
 #Grafo ()
 G = Graph()
-posNodos={
-"Shinagawa":(327,18),
-"Osaki":(260,9),
-"Gotanda":(215,9),
-"Meguro":(175,9),
-"Ebisu":(120,36),
-"Shibuya":(120,97),
-"Harajuku":(120,150),
-"Yoyogi":(120,230),
-"Sobu Yoyogi":(70,230),
-"Yamanote Yoyogi":(120,230),
-"Shinjuku":(120,273),
-"Sobu Shinjuku":(70,273),
-"Chuo Shinjuku":(92,315),
-"Yamanote Shinjuku":(120,273),
-"Shin-Okubo":(120,360),
-"Takadanobaba":(125,406),
-"Mejiro":(166,467),
-"Ikebukuro":(233,490),
-"Otsuka":(311,488),
-"Sugamo":(350,488),
-"Komagome":(387,488),
-"Tabata":(436,470),
-"Nishi-Nippori":(458,446),
-"Nippori":(465,410),
-"Uguisudani":(465,380),
-"Ueno":(465,350),
-"Okachimachi":(465,317),
-"Akihabara":(465,286),
-"Yamanote Akihabara":(465,286),
-"Sobu Akihabara":(410,286),
-"Kanda":(465,238),
-"Tokyo":(465,192),
-"Yamanote Tokyo":(465,192),
-"Chuo Tokyo":(415,192),
-"Yurakucho":(460,150),
-"Shimbashi":(433,123),
-"Hamamatsucho":(400,91),
-"Tamachi":(365,56),
-"Ochanomizu":(335,309),
-"Sobu Ochanomizu":(314,286),
-"Chuo Ochanomizu":(335,315),
-"Suidobashi":(283,264),
-"Iidabashi":(263,244),
-"Ichigaya":(243,224),
-"Yotsuya":(223,204),
-"Shinanomachi":(195,180),
-"Sendagaya":(146,180)
-}
+
 
 G.add_edges_from([("Yamanote Shinjuku","Shin-Okubo", {'color':'green', 'weight':1.3}),
                  ("Shin-Okubo","Takadanobaba", {'color':'green', 'weight':1.4}),
@@ -278,29 +303,30 @@ def calcularResumenCamino():
                         padre = treeResultado.insert('','end',text=camino[i])
                         nuevo = padre
                     treeResultado.set(padre,'linea',linea)
-                    #treeResultado.item(padre,tags=('Yamanote'))
                 else: 
                     nuevo = treeResultado.insert(padre,'end',text=camino[i])
+                
             if i==1:
                 treeResultado.set(nuevo, 'distancia',str(Gcopia[camino[i-1]][camino[i]]['weight']))
+                treeResultado.item(padre,tags=(linea,'IO'))
+                treeResultado.item(nuevo,tags=(linea))
             elif i!=0:
                 treeResultado.set(nuevo, 'distancia',
                                   round(float(treeResultado.item(ultimo)['values'][1]) + Gcopia[camino[i-1]][camino[i]]['weight'],1))
+                if i == longCamino-1:
+                    treeResultado.item(nuevo,tags=(linea,'IO'))
+                else:
+                    treeResultado.item(nuevo,tags=(linea))
             ultimo = nuevo
                     
-                        
+                     
+colorPastel={'red':'#f17c73','green':'#6adf88','yellow':'#f1f073','blue':'#4751cc','grey':'#ccccc7'}
 
 def pintarGraph():
     global camino
-    #top = Toplevel()
-    #top.title('Ruta en el Mapa')
-    #topFrame= Frame(top)
-    #topFrame.pack()
-    #topFrame.config(width=600,height = 600)
     plt.close()
     f = plt.figure(figsize=(18,15),dpi=100,num='Ruta en el Mapa')
     thismanager = plt.get_current_fig_manager()
-    #Icon made by Freepik from www.flaticon.com
     thismanager.window.wm_iconbitmap("konoha.ico")
     thismanager.window.state('zoomed')
     a = f.add_subplot(111)
@@ -313,27 +339,44 @@ def pintarGraph():
     L = ['Shinjuku', 'Akihabara', 'Tokyo', 'Ochanomizu' , 'Yoyogi']
     caminoNodos = [parada for parada in camino if parada not in L]
     caminoEdges = [(caminoNodos[i],caminoNodos[i+1]) for i in range(len(caminoNodos)-1)]
-    colorsE = [G[u][v]['color']for u,v in edges]
+    colorsE = [colorPastel[G[u][v]['color']] for u,v in edges]
     weightsE = [4 + 2.2/(G[u][v]['weight']) for u,v in edges]
     nx.draw_networkx(Gcopia, posNodos,node_color='grey',node_size=200,width =weightsE,
-                     alpha=0.8, with_labels=True, font_weight='bold', edge_color=colorsE)
+                     with_labels=True, font_weight='bold', edge_color=colorsE)
     
     nx.draw_networkx_edges(Gcopia, posNodos,
                        edgelist=caminoEdges,
                        width=[4 + 2.2/Gcopia[caminoNodos[i]][caminoNodos[i+1]]['weight'] for i in range(len(caminoNodos)-1)],
-                       edge_color='b',alpha=0.7)
+                       edge_color=colorPastel['blue'],alpha=0.7)
 
     xlim=a.get_xlim()
     ylim=a.get_ylim()
+    
+    leyendaRojo = mpatches.Patch(color=colorPastel['red'], label='Chuo Line')
+    leyendaAmarillo = mpatches.Patch(color=colorPastel['yellow'], label='Sobu Line')
+    leyendaVerde = mpatches.Patch(color=colorPastel['green'], label='Yamanote Line')
+    leyendaGris = mpatches.Patch(color=colorPastel['grey'], label='Intercambio')
+    leyendaAzul = mpatches.Patch(color=colorPastel['blue'], label='Trayecto óptimo')
+    
+    plt.legend(handles=[leyendaVerde,leyendaRojo,leyendaAmarillo,leyendaGris,leyendaAzul])
+    
     plt.show()
-    #canvas = FigureCanvasTkAgg(f,master= frame)
-    #canvas.show()
-    #canvas.get_tk_widget().pack(side=Tk.TOP, fill=Tk.BOTH, expand=True)
+   
     
 def finProg():
     plt.close()
     root.destroy()
- 
+def fixed_map(option):
+    # Fix for setting text colour for Tkinter 8.6.9
+    # From: https://core.tcl.tk/tk/info/509cafafae
+    #
+    # Returns the style map for 'option' with any styles starting with
+    # ('!disabled', '!selected', ...) filtered out.
+    
+    # style.map() returns an empty list for missing options, so this
+    # should be future-safe.
+    return [elm for elm in style.map('Treeview', query_opt=option) if elm[:2] != ('!disabled', '!selected')]
+
 root = Tk()
 root.title("Metro Japón")
 root.resizable(0, 0)
@@ -379,9 +422,9 @@ botonPintarGrafo.grid(row=5, column=0 ,padx=5, pady=5)
 labelResultado = Label(frame,text = "Resultado:")
 labelResultado.grid(row=0, column=1, sticky=W ,padx=5, pady=5)
 
-treeResultado = Treeview(frame)
-
-
+style = Style()
+style.map('Treeview', foreground=fixed_map('foreground'), background=fixed_map('background'))
+treeResultado = Treeview(frame,selectmode='none')
 treeResultado.grid (row=1, column=1, rowspan=5, sticky=W ,padx=5, pady=5)
 treeResultado.config(columns=("linea",'distancia'))
 treeResultado.column('linea',width=130,anchor='center')
@@ -390,9 +433,10 @@ treeResultado.heading('#0',text='Estación')
 treeResultado.heading('linea',text='Linea')
 treeResultado.heading('distancia',text='Distancia Recorrida (km)')
 
-treeResultado.tag_configure('Chuo', background='red')
-treeResultado.tag_configure('Yamanote', background='green')
-treeResultado.tag_configure('Sobu', background='yellow')
+treeResultado.tag_configure('Chuo', background=colorPastel['red'])
+treeResultado.tag_configure('Yamanote', background=colorPastel['green'])
+treeResultado.tag_configure('Sobu', background=colorPastel['yellow'])
+treeResultado.tag_configure('IO',foreground=colorPastel['blue'])
 
 ysb = Scrollbar(frame,orient=VERTICAL, command= treeResultado.yview)
 treeResultado['yscroll'] = ysb.set 
