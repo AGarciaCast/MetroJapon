@@ -6,6 +6,7 @@ from matplotlib.figure import Figure
 import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 from tkinter import *
+from tkinter import messagebox
 from tkinter.ttk import *
 from networkx import *
 from heapq import *
@@ -130,10 +131,10 @@ G.add_edges_from([("Yamanote Shinjuku","Shin-Okubo", {'color':'green', 'weight':
                  ("Uguisudani", "Ueno", {'color':'green', 'weight':1.1}),
                  ("Ueno", "Okachimachi", {'color':'green', 'weight':0.6}),
                  ("Okachimachi", "Yamanote Akihabara", {'color':'green', 'weight':1.0}),
-                 ("Yamanote Akihabara", "Akihabara", {'color':'grey', 'weight':0.0}),
+                 ("Yamanote Akihabara", "Akihabara", {'color':'green', 'weight':0.0}),
                  ("Yamanote Akihabara", "Kanda", {'color':'green', 'weight':0.7}),
                  ("Kanda", "Yamanote Tokyo", {'color':'green', 'weight':1.3}),
-                 ("Yamanote Tokyo", "Tokyo", {'color':'blue', 'weight':0.0}),
+                 ("Yamanote Tokyo", "Tokyo", {'color':'green', 'weight':0.0}),
                  ("Yamanote Tokyo", "Yurakucho", {'color':'green', 'weight':0.8}),
                  ("Yurakucho", "Shimbashi", {'color':'green', 'weight':1.1}),
                  ("Shimbashi", "Hamamatsucho", {'color':'green', 'weight':1.2}),
@@ -146,17 +147,17 @@ G.add_edges_from([("Yamanote Shinjuku","Shin-Okubo", {'color':'green', 'weight':
                  ("Ebisu", "Shibuya", {'color':'green', 'weight':1.6}),
                  ("Shibuya", "Harajuku", {'color':'green', 'weight':1.2}),
                  ("Harajuku", "Yamanote Yoyogi", {'color':'green', 'weight':1.5}),
-                 ("Yamanote Yoyogi", "Yoyogi", {'color':'blue', 'weight':0.0}),
+                 ("Yamanote Yoyogi", "Yoyogi", {'color':'green', 'weight':0.0}),
                  ("Yamanote Yoyogi", "Yamanote Shinjuku", {'color':'green', 'weight':0.7}),
-                 ("Yamanote Shinjuku", "Shinjuku", {'color':'blue', 'weight':0.0}),
-                 ("Shinjuku", "Chuo Shinjuku", {'color':'blue', 'weight':0.0}),
+                 ("Yamanote Shinjuku", "Shinjuku", {'color':'green', 'weight':0.0}),
+                 ("Shinjuku", "Chuo Shinjuku", {'color':'red', 'weight':0.0}),
                  ("Chuo Shinjuku", "Chuo Ochanomizu", {'color':'red', 'weight':7.7}),
-                 ("Chuo Ochanomizu", "Ochanomizu", {'color':'blue', 'weight':0.0}),
+                 ("Chuo Ochanomizu", "Ochanomizu", {'color':'red', 'weight':0.0}),
                  ("Chuo Ochanomizu", "Chuo Tokyo", {'color':'red', 'weight':2.6}),
-                 ("Chuo Tokyo", "Tokyo", {'color':'blue', 'weight':0.0}),
-                 ("Shinjuku", "Sobu Shinjuku", {'color':'blue', 'weight':0.0}),
+                 ("Chuo Tokyo", "Tokyo", {'color':'red', 'weight':0.0}),
+                 ("Shinjuku", "Sobu Shinjuku", {'color':'yellow', 'weight':0.0}),
                  ("Sobu Shinjuku", "Sobu Yoyogi", {'color':'yellow', 'weight':0.7}),
-                 ("Sobu Yoyogi", "Yoyogi", {'color':'grey', 'weight':0.0}),
+                 ("Sobu Yoyogi", "Yoyogi", {'color':'yellow', 'weight':0.0}),
                  ("Sobu Yoyogi", "Sendagaya", {'color':'yellow', 'weight':1.0}),
                  ("Sendagaya", "Shinanomachi", {'color':'yellow', 'weight':0.7}),
                  ("Shinanomachi", "Yotsuya", {'color':'yellow', 'weight':1.3}),
@@ -164,17 +165,17 @@ G.add_edges_from([("Yamanote Shinjuku","Shin-Okubo", {'color':'green', 'weight':
                  ("Ichigaya", "Iidabashi", {'color':'yellow', 'weight':1.5}),
                  ("Iidabashi", "Suidobashi", {'color':'yellow', 'weight':0.9}),
                  ("Suidobashi", "Sobu Ochanomizu", {'color':'yellow', 'weight':0.8}),
-                 ("Sobu Ochanomizu", "Ochanomizu", {'color':'blue', 'weight':0.0}),
+                 ("Sobu Ochanomizu", "Ochanomizu", {'color':'yellow', 'weight':0.0}),
                  ("Sobu Ochanomizu", "Sobu Akihabara", {'color':'yellow', 'weight':0.9}),
-                 ("Sobu Akihabara", "Akihabara", {'color':'blue', 'weight':0.0}),
+                 ("Sobu Akihabara", "Akihabara", {'color':'yellow', 'weight':0.0}),
                  ("Yamanote Yoyogi", "Sobu Yoyogi", {'color' :'grey', 'weight':0.2}),
                  ("Yamanote Shinjuku", "Chuo Shinjuku", {'color':'grey', 'weight':0.2}),
                  ("Yamanote Akihabara", "Sobu Akihabara", {'color':'grey', 'weight':0.2})
                  ])
 
-colorLinea={'green': 'Yamanote', 'red': 'Chuo', 'yellow': 'Sobu', 'grey': 'Interchange','blue': 'Simbolic'}
+colorLinea={'green': 'Yamanote', 'red': 'Chuo', 'yellow': 'Sobu', 'grey': 'Interchange'}
 
-def algoritmoA_Estrella(origenNombre, destinoNombre,G) :
+def algoritmoA_Estrella(origenNombre, destinoNombre,G,transbordo) :
     origen = diccNodos[origenNombre]
     destino = diccNodos[destinoNombre]
     #PriorityQueue de duplas (f , nombre)
@@ -202,6 +203,8 @@ def algoritmoA_Estrella(origenNombre, destinoNombre,G) :
             for nodoSiguiente in list(G.adj[nodoPrometedor]):
                 #Se calculan f y g provisionales pero todavia no se guardan
                 g_nodoSiguiente = diccNodos[nodoPrometedor]['g'] + G.edges[nodoPrometedor, nodoSiguiente]['weight']
+                if  G.edges[nodoPrometedor, nodoSiguiente]['color'] == 'grey':
+                    g_nodoSiguiente += transbordo*50
                 f_nodoSiguiente = g_nodoSiguiente + h[diccNodos[nodoSiguiente]['posH']] 
                 G.remove_edge(nodoPrometedor, nodoSiguiente)
                 
@@ -272,6 +275,8 @@ def eliminarNodosAux(G,origenNombre=None, destinoNombre=None):
         if (nodo != origenNombre and nodo != destinoNombre) :
            G.remove_node(nodo)
 
+click_counter=0
+
 def calcularResumenCamino():
     if(seleccionOrigen.current() !=-1 and seleccionDestino.current()!=-1):
         #Habilita el boton de dibujar
@@ -283,7 +288,7 @@ def calcularResumenCamino():
         destinoNombre = seleccionDestino.get()
         Gcopia = G.copy()
         eliminarNodosAux(Gcopia, origenNombre, destinoNombre)
-        camino = algoritmoA_Estrella(origenNombre, destinoNombre, Gcopia.copy())
+        camino = algoritmoA_Estrella(origenNombre, destinoNombre, Gcopia.copy(),estadoTransbordo.get())
         linea = None
         longCamino = len(camino)
         for i in range(longCamino):
@@ -318,6 +323,13 @@ def calcularResumenCamino():
                 else:
                     treeResultado.item(nuevo,tags=(linea))
             ultimo = nuevo
+    else:
+        global click_counter
+        click_counter+=1
+        if click_counter<=10:
+            messagebox.showinfo('Calular Ruta','Tienes que selecionar previamente el origen y el destino.') 
+        else:
+             messagebox.showinfo('経路計算をする','以前は,発信元と宛先を選択する必要があります。')
                     
                      
 colorPastel={'red':'#f17c73','green':'#6adf88','yellow':'#f1f073','blue':'#4751cc','grey':'#ccccc7'}
@@ -361,7 +373,11 @@ def pintarGraph():
     plt.legend(handles=[leyendaVerde,leyendaRojo,leyendaAmarillo,leyendaGris,leyendaAzul])
     
     plt.show()
-   
+
+def alertaMuchoTiempo():
+    if estadoTransbordo.get() == 1:
+        messagebox.showwarning('Advertencia','Al seleccionar esta opción el resultado puede tartar en calcularse más de lo normal.')
+ 
     
 def finProg():
     plt.close()
@@ -410,14 +426,19 @@ seleccionDestino["values"] = ("Shinagawa","Osaki","Gotanda","Meguro","Ebisu","Sh
                             "Akihabara","Kanda","Tokyo","Yurakucho","Shimbashi","Hamamatsucho","Tamachi",
                             "Ochanomizu","Suidobashi","Iidabashi","Ichigaya","Yotsuya","Shinanomachi","Sendagaya")
 
+estadoTransbordo = IntVar()
 
+opcionTransbordo= Checkbutton(frame, text = 'Mínino número de transbordos',
+                              variable = estadoTransbordo,onvalue = 1, offvalue=0,command=alertaMuchoTiempo)
+
+opcionTransbordo.grid(row=4, column =0,padx=5, pady=5)
 camino = None
 
 botonCalcular  = Button (frame, command=calcularResumenCamino, text = "Calcular ruta")
-botonCalcular.grid(row=4, column=0 ,padx=5, pady=5)
+botonCalcular.grid(row=5, column=0 ,padx=5, pady=5)
 
 botonPintarGrafo=Button (frame,command = pintarGraph,text = "Dibujar ruta",state=DISABLED)
-botonPintarGrafo.grid(row=5, column=0 ,padx=5, pady=5)
+botonPintarGrafo.grid(row=6, column=0 ,padx=5, pady=5)
 
 labelResultado = Label(frame,text = "Resultado:")
 labelResultado.grid(row=0, column=1, sticky=W ,padx=5, pady=5)
