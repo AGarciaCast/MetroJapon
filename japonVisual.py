@@ -168,9 +168,9 @@ G.add_edges_from([("Yamanote Shinjuku","Shin-Okubo", {'color':'green', 'weight':
                  ("Sobu Ochanomizu", "Ochanomizu", {'color':'yellow', 'weight':0.0}),
                  ("Sobu Ochanomizu", "Sobu Akihabara", {'color':'yellow', 'weight':0.9}),
                  ("Sobu Akihabara", "Akihabara", {'color':'yellow', 'weight':0.0}),
-                 ("Yamanote Yoyogi", "Sobu Yoyogi", {'color' :'grey', 'weight':0.2}),
-                 ("Yamanote Shinjuku", "Chuo Shinjuku", {'color':'grey', 'weight':0.2}),
-                 ("Yamanote Akihabara", "Sobu Akihabara", {'color':'grey', 'weight':0.2})
+                 ("Yamanote Yoyogi", "Sobu Yoyogi", {'color' :'grey', 'weight':0.08}),
+                 ("Yamanote Shinjuku", "Chuo Shinjuku", {'color':'grey', 'weight':0.08}),
+                 ("Yamanote Akihabara", "Sobu Akihabara", {'color':'grey', 'weight':0.08})
                  ])
 
 colorLinea={'green': 'Yamanote', 'red': 'Chuo', 'yellow': 'Sobu', 'grey': 'Interchange'}
