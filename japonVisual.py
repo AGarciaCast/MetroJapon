@@ -209,8 +209,8 @@ def algoritmoA_Estrella(origenNombre, destinoNombre,G,transbordo) :
     listaAbierta = []
     #Lista
     listaCerrada = []
-    #Heuristica
-    h = [float(num) for num in cogerLinea(diccNodos[destinoNombre]['posH'])]
+    #Heuristica en minutos
+    h = [(float(num)/100) * 60 for num in cogerLinea(diccNodos[destinoNombre]['posH'])]
          
     #Inicializar el nodo origen  
     origen['g'] = 0
@@ -230,6 +230,7 @@ def algoritmoA_Estrella(origenNombre, destinoNombre,G,transbordo) :
             for nodoSiguiente in list(G.adj[nodoPrometedor]):
                 #Se calculan f y g provisionales pero todavia no se guardan
                 g_nodoSiguiente = diccNodos[nodoPrometedor]['g'] + G.edges[nodoPrometedor, nodoSiguiente]['tiempo']
+                #Penalizacion por transbordo
                 if  G.edges[nodoPrometedor, nodoSiguiente]['color'] == 'grey':
                     g_nodoSiguiente += transbordo*50
                 f_nodoSiguiente = g_nodoSiguiente + h[diccNodos[nodoSiguiente]['posH']] 
@@ -252,7 +253,7 @@ def algoritmoA_Estrella(origenNombre, destinoNombre,G,transbordo) :
                     heappush(listaAbierta, (diccNodos[nodoSiguiente]['f'], nodoSiguiente))
                     
     if (hemosLlegado) :
-        return calcularRuta(origenNombre, destinoNombre)
+        return calcularRuta(origenNombre, destinoNombre), diccNodos[destinoNombre]['g']
     else :
         print('Error')
                    
@@ -315,7 +316,7 @@ def calcularResumenCamino():
         destinoNombre = seleccionDestino.get()
         Gcopia = G.copy()
         eliminarNodosAux(Gcopia, origenNombre, destinoNombre)
-        camino = algoritmoA_Estrella(origenNombre, destinoNombre, Gcopia.copy(),estadoTransbordo.get())
+        camino, tiempoTotal = algoritmoA_Estrella(origenNombre, destinoNombre, Gcopia.copy(),estadoTransbordo.get())
         linea = None
         longCamino = len(camino)
         for i in range(longCamino):
