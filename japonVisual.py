@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3.7
 # -*- coding: utf-8 -*-
 import matplotlib
 matplotlib.use('TkAgg')
@@ -316,11 +316,12 @@ def calcularResumenCamino():
         destinoNombre = seleccionDestino.get()
         Gcopia = G.copy()
         eliminarNodosAux(Gcopia, origenNombre, destinoNombre)
-        camino, tiempoTotal = algoritmoA_Estrella(origenNombre, destinoNombre, Gcopia.copy(),estadoTransbordo.get())
+        camino,tiempoTotal = algoritmoA_Estrella(origenNombre, destinoNombre, Gcopia.copy(),estadoTransbordo.get())
+        labelResultado['text']='Resultado: ' + str(round(tiempoTotal,2)) +' min'
         linea = None
         longCamino = len(camino)
         for i in range(longCamino):
-            if i == 0 or i==longCamino-1 :
+            if i == 0:
                 padre=treeResultado.insert('','end',text=camino[i])
                 nuevo = padre
             else:
@@ -331,18 +332,27 @@ def calcularResumenCamino():
                          linea=infoLinea[Gcopia[camino[i-1]][camino[i]]['color']]['nombre']
                          
                     if i ==1:
-                        nuevo =treeResultado.insert(padre,'end',text=camino[i])
+                         if i == longCamino-1:
+                             nuevo = treeResultado.insert('','end',text=camino[i])
+                         else:
+                             nuevo =treeResultado.insert(padre,'end',text=camino[i])
                     else:
                         padre = treeResultado.insert('','end',text=camino[i])
                         nuevo = padre
                     treeResultado.set(padre,'linea',linea)
                 else: 
-                    nuevo = treeResultado.insert(padre,'end',text=camino[i])
+                    if i == longCamino-1:
+                         nuevo = treeResultado.insert('','end',text=camino[i])
+                    else :
+                        nuevo = treeResultado.insert(padre,'end',text=camino[i])
                 
             if i==1:
                 treeResultado.set(nuevo, 'distancia',str(Gcopia[camino[i-1]][camino[i]]['weight']))
                 treeResultado.item(padre,tags=(linea,'IO'))
-                treeResultado.item(nuevo,tags=(linea))
+                if i == longCamino-1:
+                    treeResultado.item(nuevo,tags=(linea,'IO'))
+                else:
+                    treeResultado.item(nuevo,tags=(linea))
             elif i!=0:
                 treeResultado.set(nuevo, 'distancia',
                                   round(float(treeResultado.item(ultimo)['values'][1]) + Gcopia[camino[i-1]][camino[i]]['weight'],1))
@@ -358,7 +368,7 @@ def calcularResumenCamino():
             messagebox.showinfo('Calular Ruta','Tienes que selecionar previamente el origen y el destino.') 
         else:
              messagebox.showinfo('経路計算をする','以前は,発信元と宛先を選択する必要があります。')
-                    
+                      
                      
 colorPastel={'red':'#f17c73','green':'#6adf88','yellow':'#f1f073','blue':'#4751cc','grey':'#ccccc7'}
 
