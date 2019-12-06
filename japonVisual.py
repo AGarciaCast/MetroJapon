@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import matplotlib
 matplotlib.use('TkAgg')
@@ -117,67 +118,89 @@ posNodos={"Shinagawa":(327,18),
 G = Graph()
 
 
-G.add_edges_from([("Yamanote Shinjuku","Shin-Okubo", {'color':'green', 'weight':1.3}),
-                 ("Shin-Okubo","Takadanobaba", {'color':'green', 'weight':1.4}),
-                 ("Takadanobaba", "Mejiro", {'color':'green', 'weight':0.9}), 
-                 ("Mejiro", "Ikebukuro", {'color':'green', 'weight':1.2}),
-                 ("Ikebukuro", "Otsuka", {'color':'green', 'weight':1.8}),
-                 ("Otsuka", "Sugamo", {'color':'green', 'weight':0.9}),
-                 ("Sugamo", "Komagome", {'color':'green', 'weight':0.7}),
-                 ("Komagome", "Tabata", {'color':'green', 'weight':1.6}),
-                 ("Tabata", "Nishi-Nippori", {'color':'green', 'weight':0.8}),
-                 ("Nishi-Nippori", "Nippori", {'color':'green', 'weight':0.5}),
-                 ("Nippori", "Uguisudani", {'color':'green', 'weight':1.1}),
-                 ("Uguisudani", "Ueno", {'color':'green', 'weight':1.1}),
-                 ("Ueno", "Okachimachi", {'color':'green', 'weight':0.6}),
-                 ("Okachimachi", "Yamanote Akihabara", {'color':'green', 'weight':1.0}),
-                 ("Yamanote Akihabara", "Akihabara", {'color':'green', 'weight':0.0}),
-                 ("Yamanote Akihabara", "Kanda", {'color':'green', 'weight':0.7}),
-                 ("Kanda", "Yamanote Tokyo", {'color':'green', 'weight':1.3}),
-                 ("Yamanote Tokyo", "Tokyo", {'color':'green', 'weight':0.0}),
-                 ("Yamanote Tokyo", "Yurakucho", {'color':'green', 'weight':0.8}),
-                 ("Yurakucho", "Shimbashi", {'color':'green', 'weight':1.1}),
-                 ("Shimbashi", "Hamamatsucho", {'color':'green', 'weight':1.2}),
-                 ("Hamamatsucho", "Tamachi", {'color':'green', 'weight':1.5}),
-                 ("Tamachi", "Shinagawa", {'color':'green', 'weight':2.2}), 
-                 ("Shinagawa", "Osaki", {'color':'green', 'weight':2.0}),
-                 ("Osaki", "Gotanda", {'color':'green', 'weight':0.9}),
-                 ("Gotanda", "Meguro", {'color':'green', 'weight':1.2}),
-                 ("Meguro", "Ebisu", {'color':'green', 'weight':1.5}),
-                 ("Ebisu", "Shibuya", {'color':'green', 'weight':1.6}),
-                 ("Shibuya", "Harajuku", {'color':'green', 'weight':1.2}),
-                 ("Harajuku", "Yamanote Yoyogi", {'color':'green', 'weight':1.5}),
-                 ("Yamanote Yoyogi", "Yoyogi", {'color':'green', 'weight':0.0}),
-                 ("Yamanote Yoyogi", "Yamanote Shinjuku", {'color':'green', 'weight':0.7}),
-                 ("Yamanote Shinjuku", "Shinjuku", {'color':'green', 'weight':0.0}),
-                 ("Shinjuku", "Chuo Shinjuku", {'color':'red', 'weight':0.0}),
-                 ("Chuo Shinjuku", "Chuo Ochanomizu", {'color':'red', 'weight':7.7}),
-                 ("Chuo Ochanomizu", "Ochanomizu", {'color':'red', 'weight':0.0}),
-                 ("Chuo Ochanomizu", "Chuo Tokyo", {'color':'red', 'weight':2.6}),
-                 ("Chuo Tokyo", "Tokyo", {'color':'red', 'weight':0.0}),
-                 ("Shinjuku", "Sobu Shinjuku", {'color':'yellow', 'weight':0.0}),
-                 ("Sobu Shinjuku", "Sobu Yoyogi", {'color':'yellow', 'weight':0.7}),
-                 ("Sobu Yoyogi", "Yoyogi", {'color':'yellow', 'weight':0.0}),
-                 ("Sobu Yoyogi", "Sendagaya", {'color':'yellow', 'weight':1.0}),
-                 ("Sendagaya", "Shinanomachi", {'color':'yellow', 'weight':0.7}),
-                 ("Shinanomachi", "Yotsuya", {'color':'yellow', 'weight':1.3}),
-                 ("Yotsuya", "Ichigaya", {'color':'yellow', 'weight':0.8}),
-                 ("Ichigaya", "Iidabashi", {'color':'yellow', 'weight':1.5}),
-                 ("Iidabashi", "Suidobashi", {'color':'yellow', 'weight':0.9}),
-                 ("Suidobashi", "Sobu Ochanomizu", {'color':'yellow', 'weight':0.8}),
-                 ("Sobu Ochanomizu", "Ochanomizu", {'color':'yellow', 'weight':0.0}),
-                 ("Sobu Ochanomizu", "Sobu Akihabara", {'color':'yellow', 'weight':0.9}),
-                 ("Sobu Akihabara", "Akihabara", {'color':'yellow', 'weight':0.0}),
-                 ("Yamanote Yoyogi", "Sobu Yoyogi", {'color' :'grey', 'weight':0.08}),
-                 ("Yamanote Shinjuku", "Chuo Shinjuku", {'color':'grey', 'weight':0.08}),
-                 ("Yamanote Akihabara", "Sobu Akihabara", {'color':'grey', 'weight':0.08}), 
-                 ("Chou Ochanomizu", "Sobu Ochanomizu", {'color':'grey', 'weight':0.02}), 
-("Yamanote Shinjuku", "Sobu Shinjuku", {'color':'grey', 'weight':0.14}), 
-("Yamanote Tokyo", "Chou Tokyo", {'color':'grey', 'weight':0.2}), 
-("Sobu Shinjuku", "Chou Shinjuku", {'color':'grey', 'weight':0.18})
-] )
+G.add_edges_from([("Yamanote Shinjuku","Shin-Okubo", {'color':'green', 'weight':1.3,'tiempo':0}),
+                 ("Shin-Okubo","Takadanobaba", {'color':'green', 'weight':1.4,'tiempo':0}),
+                 ("Takadanobaba", "Mejiro", {'color':'green', 'weight':0.9,'tiempo':0}), 
+                 ("Mejiro", "Ikebukuro", {'color':'green', 'weight':1.2,'tiempo':0}),
+                 ("Ikebukuro", "Otsuka", {'color':'green', 'weight':1.8,'tiempo':0}),
+                 ("Otsuka", "Sugamo", {'color':'green', 'weight':0.9,'tiempo':0}),
+                 ("Sugamo", "Komagome", {'color':'green', 'weight':0.7,'tiempo':0}),
+                 ("Komagome", "Tabata", {'color':'green', 'weight':1.6,'tiempo':0}),
+                 ("Tabata", "Nishi-Nippori", {'color':'green', 'weight':0.8,'tiempo':0}),
+                 ("Nishi-Nippori", "Nippori", {'color':'green', 'weight':0.5,'tiempo':0}),
+                 ("Nippori", "Uguisudani", {'color':'green', 'weight':1.1,'tiempo':0}),
+                 ("Uguisudani", "Ueno", {'color':'green', 'weight':1.1,'tiempo':0}),
+                 ("Ueno", "Okachimachi", {'color':'green', 'weight':0.6,'tiempo':0}),
+                 ("Okachimachi", "Yamanote Akihabara", {'color':'green', 'weight':1.0,'tiempo':0}),
+                 ("Yamanote Akihabara", "Akihabara", {'color':'green', 'weight':0.0,'tiempo':0}),
+                 ("Yamanote Akihabara", "Kanda", {'color':'green', 'weight':0.7,'tiempo':0}),
+                 ("Kanda", "Yamanote Tokyo", {'color':'green', 'weight':1.3,'tiempo':0}),
+                 ("Yamanote Tokyo", "Tokyo", {'color':'green', 'weight':0.0,'tiempo':0}),
+                 ("Yamanote Tokyo", "Yurakucho", {'color':'green', 'weight':0.8,'tiempo':0}),
+                 ("Yurakucho", "Shimbashi", {'color':'green', 'weight':1.1,'tiempo':0}),
+                 ("Shimbashi", "Hamamatsucho", {'color':'green', 'weight':1.2,'tiempo':0}),
+                 ("Hamamatsucho", "Tamachi", {'color':'green', 'weight':1.5,'tiempo':0}),
+                 ("Tamachi", "Shinagawa", {'color':'green', 'weight':2.2,'tiempo':0}), 
+                 ("Shinagawa", "Osaki", {'color':'green', 'weight':2.0,'tiempo':0}),
+                 ("Osaki", "Gotanda", {'color':'green', 'weight':0.9,'tiempo':0}),
+                 ("Gotanda", "Meguro", {'color':'green', 'weight':1.2,'tiempo':0}),
+                 ("Meguro", "Ebisu", {'color':'green', 'weight':1.5,'tiempo':0}),
+                 ("Ebisu", "Shibuya", {'color':'green', 'weight':1.6,'tiempo':0}),
+                 ("Shibuya", "Harajuku", {'color':'green', 'weight':1.2,'tiempo':0}),
+                 ("Harajuku", "Yamanote Yoyogi", {'color':'green', 'weight':1.5,'tiempo':0}),
+                 ("Yamanote Yoyogi", "Yoyogi", {'color':'green', 'weight':0.0,'tiempo':0}),
+                 ("Yamanote Yoyogi", "Yamanote Shinjuku", {'color':'green', 'weight':0.7,'tiempo':0}),
+                 ("Yamanote Shinjuku", "Shinjuku", {'color':'green', 'weight':0.0,'tiempo':0}),
+                 ("Shinjuku", "Chuo Shinjuku", {'color':'red', 'weight':0.0,'tiempo':0}),
+                 ("Chuo Shinjuku", "Chuo Ochanomizu", {'color':'red', 'weight':7.7,'tiempo':0}),
+                 ("Chuo Ochanomizu", "Ochanomizu", {'color':'red', 'weight':0.0,'tiempo':0}),
+                 ("Chuo Ochanomizu", "Chuo Tokyo", {'color':'red', 'weight':2.6,'tiempo':0}),
+                 ("Chuo Tokyo", "Tokyo", {'color':'red', 'weight':0.0,'tiempo':0}),
+                 ("Shinjuku", "Sobu Shinjuku", {'color':'yellow', 'weight':0.0,'tiempo':0}),
+                 ("Sobu Shinjuku", "Sobu Yoyogi", {'color':'yellow', 'weight':0.7,'tiempo':0}),
+                 ("Sobu Yoyogi", "Yoyogi", {'color':'yellow', 'weight':0.0,'tiempo':0}),
+                 ("Sobu Yoyogi", "Sendagaya", {'color':'yellow', 'weight':1.0,'tiempo':0}),
+                 ("Sendagaya", "Shinanomachi", {'color':'yellow', 'weight':0.7,'tiempo':0}),
+                 ("Shinanomachi", "Yotsuya", {'color':'yellow', 'weight':1.3,'tiempo':0}),
+                 ("Yotsuya", "Ichigaya", {'color':'yellow', 'weight':0.8,'tiempo':0}),
+                 ("Ichigaya", "Iidabashi", {'color':'yellow', 'weight':1.5,'tiempo':0}),
+                 ("Iidabashi", "Suidobashi", {'color':'yellow', 'weight':0.9,'tiempo':0}),
+                 ("Suidobashi", "Sobu Ochanomizu", {'color':'yellow', 'weight':0.8,'tiempo':0}),
+                 ("Sobu Ochanomizu", "Ochanomizu", {'color':'yellow', 'weight':0.0,'tiempo':0}),
+                 ("Sobu Ochanomizu", "Sobu Akihabara", {'color':'yellow', 'weight':0.9,'tiempo':0}),
+                 ("Sobu Akihabara", "Akihabara", {'color':'yellow', 'weight':0.0,'tiempo':0}),
+                 ("Yamanote Yoyogi", "Sobu Yoyogi", {'color' :'grey', 'weight':0.08,'tiempo':0}),
+                 ("Yamanote Shinjuku", "Chuo Shinjuku", {'color':'grey', 'weight':0.08,'tiempo':0}),
+                 ("Yamanote Akihabara", "Sobu Akihabara", {'color':'grey', 'weight':0.08,'tiempo':0}), 
+                 ("Chuo Ochanomizu", "Sobu Ochanomizu", {'color':'grey', 'weight':0.02,'tiempo':0}), 
+                 ("Yamanote Shinjuku", "Sobu Shinjuku", {'color':'grey', 'weight':0.14,'tiempo':0}), 
+                 ("Yamanote Tokyo", "Chuo Tokyo", {'color':'grey', 'weight':0.25,'tiempo':0}), 
+                 ("Sobu Shinjuku", "Chuo Shinjuku", {'color':'grey', 'weight':0.18,'tiempo':0})
+                 ] )
 
-colorLinea={'green': 'Yamanote', 'red': 'Chuo', 'yellow': 'Sobu', 'grey': 'Interchange'}
+
+infoLinea={'green': {'nombre':'Yamanote','velocidad':90},
+           'red': {'nombre':'Chuo','velocidad':100}, 
+           'yellow':{ 'nombre':'Sobu','velocidad':100},
+           'grey': {'nombre':'Interchange','velocidad':5}
+           }
+
+for u,v in G.edges():
+    peso =G[u][v]['weight']
+    color = G[u][v]['color']
+    tiempo = 0
+    if peso!=0:
+        tiempo = peso/infoLinea[color]['velocidad']*60
+        if color=='grey':
+            if color.split()[0]=='Yamanote':
+                tiempo += 2.5
+            else:
+                tiempo += 3.0
+        else:
+            tiempo += 1.5
+        G[u][v]['tiempo']=tiempo
+   
+            
 
 def algoritmoA_Estrella(origenNombre, destinoNombre,G,transbordo) :
     origen = diccNodos[origenNombre]
@@ -206,7 +229,7 @@ def algoritmoA_Estrella(origenNombre, destinoNombre,G,transbordo) :
         else :
             for nodoSiguiente in list(G.adj[nodoPrometedor]):
                 #Se calculan f y g provisionales pero todavia no se guardan
-                g_nodoSiguiente = diccNodos[nodoPrometedor]['g'] + G.edges[nodoPrometedor, nodoSiguiente]['weight']
+                g_nodoSiguiente = diccNodos[nodoPrometedor]['g'] + G.edges[nodoPrometedor, nodoSiguiente]['tiempo']
                 if  G.edges[nodoPrometedor, nodoSiguiente]['color'] == 'grey':
                     g_nodoSiguiente += transbordo*50
                 f_nodoSiguiente = g_nodoSiguiente + h[diccNodos[nodoSiguiente]['posH']] 
@@ -300,11 +323,11 @@ def calcularResumenCamino():
                 padre=treeResultado.insert('','end',text=camino[i])
                 nuevo = padre
             else:
-                if linea==None or colorLinea[Gcopia[camino[i-1]][camino[i]]['color']]!=linea:
-                    if colorLinea[Gcopia[camino[i-1]][camino[i]]['color']] == 'Interchange':
-                        linea=colorLinea[Gcopia[camino[i]][camino[i+1]]['color']]
+                if linea==None or infoLinea[Gcopia[camino[i-1]][camino[i]]['color']]['nombre']!=linea:
+                    if infoLinea[Gcopia[camino[i-1]][camino[i]]['color']]['nombre'] == 'Interchange':
+                        linea=infoLinea[Gcopia[camino[i]][camino[i+1]]['color']]['nombre']
                     else:
-                         linea=colorLinea[Gcopia[camino[i-1]][camino[i]]['color']]
+                         linea=infoLinea[Gcopia[camino[i-1]][camino[i]]['color']]['nombre']
                          
                     if i ==1:
                         nuevo =treeResultado.insert(padre,'end',text=camino[i])
@@ -356,17 +379,17 @@ def pintarGraph():
     caminoNodos = [parada for parada in camino if parada not in L]
     caminoEdges = [(caminoNodos[i],caminoNodos[i+1]) for i in range(len(caminoNodos)-1)]
     colorsE = [colorPastel[G[u][v]['color']] for u,v in edges]
-    weightsE = [4 + 2.2/(G[u][v]['weight']) for u,v in edges]
+    weightsE = [min(4 + 2.2/(G[u][v]['weight']),16) for u,v in edges]
     nx.draw_networkx(Gcopia, posNodos,node_color='grey',node_size=200,width =weightsE,
                      with_labels=True, font_weight='bold', edge_color=colorsE)
     
     nx.draw_networkx_edges(Gcopia, posNodos,
                        edgelist=caminoEdges,
-                       width=[4 + 2.2/Gcopia[caminoNodos[i]][caminoNodos[i+1]]['weight'] for i in range(len(caminoNodos)-1)],
+                       width=[min(4 + 2.2/Gcopia[caminoNodos[i]][caminoNodos[i+1]]['weight'],16) for i in range(len(caminoNodos)-1)],
                        edge_color=colorPastel['blue'],alpha=0.7)
-
     xlim=a.get_xlim()
-    ylim=a.get_ylim()
+    a.set_xlim([xlim[0],xlim[1]+10])
+   
     
     leyendaRojo = mpatches.Patch(color=colorPastel['red'], label='Chuo Line')
     leyendaAmarillo = mpatches.Patch(color=colorPastel['yellow'], label='Sobu Line')
@@ -465,7 +488,7 @@ treeResultado.tag_configure('IO',foreground=colorPastel['blue'])
 
 ysb = Scrollbar(frame,orient=VERTICAL, command= treeResultado.yview)
 treeResultado['yscroll'] = ysb.set 
-ysb.grid(row=1, column=2, rowspan=5, sticky='nsew')
+ysb.grid(row=1, column=2, rowspan=6, sticky='nsew')
 
 
 root.mainloop()
