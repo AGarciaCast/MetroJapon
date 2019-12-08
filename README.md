@@ -7,4 +7,4 @@ Puedes ejecutar este proyecto localmente siguiendo estos pasos:
   
   2.-Abrir cmd/terminal y hacer cd en el proyecto
   
-  3.-Ejecutar: pip install -r requirements.txt
+  3.-Ejecutar: `pip install -r requirements.txt`
