@@ -180,7 +180,7 @@ G.add_edges_from([("Yamanote Shinjuku","Shin-Okubo", {'color':'green', 'weight':
 
 
 infoLinea={'green': {'nombre':'Yamanote','velocidad':90},
-           'red': {'nombre':'Chuo','velocidad':100}, 
+           'red': {'nombre':'Chuo','velocidad':95}, 
            'yellow':{ 'nombre':'Sobu','velocidad':100},
            'grey': {'nombre':'Interchange','velocidad':5}
            }
@@ -420,6 +420,7 @@ def alertaMuchoTiempo():
 def finProg():
     plt.close()
     root.destroy()
+    
 def fixed_map(option):
     # Fix for setting text colour for Tkinter 8.6.9
     # From: https://core.tcl.tk/tk/info/509cafafae

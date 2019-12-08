@@ -180,10 +180,11 @@ G.add_edges_from([("Yamanote Shinjuku","Shin-Okubo", {'color':'green', 'weight':
 
 
 infoLinea={'green': {'nombre':'Yamanote','velocidad':90},
-           'red': {'nombre':'Chuo','velocidad':100}, 
+           'red': {'nombre':'Chuo','velocidad':95}, 
            'yellow':{ 'nombre':'Sobu','velocidad':100},
            'grey': {'nombre':'Interchange','velocidad':5}
            }
+
 
 for u,v in G.edges():
     peso =G[u][v]['weight']
