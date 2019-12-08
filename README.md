@@ -1,6 +1,6 @@
 # MetroJapon
 Calcular camino de distancia mínima en una sección del metro de Japón usando el algoritmo A*
-##Uso
+## Uso
 Puedes ejecutar este proyecto siguiendo estos pasos:
 
   1. Clonar/descargar el repositorio
