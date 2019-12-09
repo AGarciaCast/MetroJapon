@@ -244,7 +244,7 @@ def algoritmoA_Estrella(origenNombre, destinoNombre,G,transbordo) :
                     #Si mejora el camino, se guardan los nuevos f y g, 
                     #se actualizan el puntero y f en la listaAbierta
                     guardarValores(nodoSiguiente, g_nodoSiguiente, f_nodoSiguiente, nodoPrometedor)
-                    actualizarValor(listaAbierta, nodoSiguiente, diccNodos[nodoSiguiente]['g'])
+                    actualizarValor(listaAbierta, nodoSiguiente, diccNodos[nodoSiguiente]['f'])
                 #if (nodoSiguiente in listaCerrada) :
                     #TODO??
                 if (not estaEn(listaAbierta, nodoSiguiente, 1) and (nodoSiguiente not in listaCerrada)) :
