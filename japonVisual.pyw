@@ -233,7 +233,7 @@ def algoritmoA_Estrella(origenNombre, destinoNombre,G,transbordo) :
                 g_nodoSiguiente = diccNodos[nodoPrometedor]['g'] + G.edges[nodoPrometedor, nodoSiguiente]['tiempo']
                 #Penalizacion por transbordo
                 if  G.edges[nodoPrometedor, nodoSiguiente]['color'] == 'grey':
-                    g_nodoSiguiente += transbordo*50
+                    g_nodoSiguiente += transbordo*100
                 f_nodoSiguiente = g_nodoSiguiente + h[diccNodos[nodoSiguiente]['posH']] 
                 G.remove_edge(nodoPrometedor, nodoSiguiente)
                 
@@ -244,7 +244,7 @@ def algoritmoA_Estrella(origenNombre, destinoNombre,G,transbordo) :
                     #Si mejora el camino, se guardan los nuevos f y g, 
                     #se actualizan el puntero y f en la listaAbierta
                     guardarValores(nodoSiguiente, g_nodoSiguiente, f_nodoSiguiente, nodoPrometedor)
-                    actualizarValor(listaAbierta, nodoSiguiente, diccNodos[nodoSiguiente]['f'])
+                    actualizarValor(listaAbierta, nodoSiguiente, diccNodos[nodoSiguiente]['g'])
                 #if (nodoSiguiente in listaCerrada) :
                     #TODO??
                 if (not estaEn(listaAbierta, nodoSiguiente, 1) and (nodoSiguiente not in listaCerrada)) :
@@ -254,7 +254,7 @@ def algoritmoA_Estrella(origenNombre, destinoNombre,G,transbordo) :
                     heappush(listaAbierta, (diccNodos[nodoSiguiente]['f'], nodoSiguiente))
                     
     if (hemosLlegado) :
-        return calcularRuta(origenNombre, destinoNombre), diccNodos[destinoNombre]['g']
+        return calcularRuta(origenNombre, destinoNombre), diccNodos[destinoNombre]['f']
     else :
         print('Error')
                    
@@ -317,8 +317,8 @@ def calcularResumenCamino():
         destinoNombre = seleccionDestino.get()
         Gcopia = G.copy()
         eliminarNodosAux(Gcopia, origenNombre, destinoNombre)
-        camino,tiempoTotal = algoritmoA_Estrella(origenNombre, destinoNombre, Gcopia.copy(),estadoTransbordo.get())
-        labelResultado['text']='Resultado: ' + str(round(tiempoTotal,2)) +' min'
+        camino,tiempoCamino = algoritmoA_Estrella(origenNombre, destinoNombre, Gcopia.copy(),estadoTransbordo.get())
+        tiempoTotal = (1-estadoTransbordo.get())*tiempoCamino
         linea = None
         longCamino = len(camino)
         for i in range(longCamino):
@@ -350,18 +350,30 @@ def calcularResumenCamino():
             if i==1:
                 treeResultado.set(nuevo, 'distancia',str(Gcopia[camino[i-1]][camino[i]]['weight']))
                 treeResultado.item(padre,tags=(linea,'IO'))
+                
+                if estadoTransbordo.get()==1:
+                    tiempoTotal += Gcopia[camino[i-1]][camino[i]]['tiempo']
+                    
                 if i == longCamino-1:
                     treeResultado.item(nuevo,tags=(linea,'IO'))
                 else:
                     treeResultado.item(nuevo,tags=(linea))
+                    
             elif i!=0:
                 treeResultado.set(nuevo, 'distancia',
                                   round(float(treeResultado.item(ultimo)['values'][1]) + Gcopia[camino[i-1]][camino[i]]['weight'],1))
+                
+                if estadoTransbordo.get()==1:
+                    tiempoTotal += Gcopia[camino[i-1]][camino[i]]['tiempo']
+                    
                 if i == longCamino-1:
                     treeResultado.item(nuevo,tags=(linea,'IO'))
                 else:
                     treeResultado.item(nuevo,tags=(linea))
+           
             ultimo = nuevo
+            
+        labelResultado['text']='Resultado: ' + str(round(tiempoTotal,2)) +' min'       
     else:
         global click_counter
         click_counter+=1
