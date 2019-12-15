@@ -245,8 +245,7 @@ def algoritmoA_Estrella(origenNombre, destinoNombre,G,transbordo) :
                     #se actualizan el puntero y f en la listaAbierta
                     guardarValores(nodoSiguiente, g_nodoSiguiente, f_nodoSiguiente, nodoPrometedor)
                     actualizarValor(listaAbierta, nodoSiguiente, diccNodos[nodoSiguiente]['f'])
-                #if (nodoSiguiente in listaCerrada) :
-                    #TODO??
+
                 if (not estaEn(listaAbierta, nodoSiguiente, 1) and (nodoSiguiente not in listaCerrada)) :
                     #Si no se habia explorado el nodo, se guardan f, g, puntero 
                     #y se introduce en la listaAbierta
